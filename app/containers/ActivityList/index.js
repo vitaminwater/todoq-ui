@@ -13,32 +13,31 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
 import messages from './messages';
 import { loadActivities } from './actions';
-import { media } from '../../style';
-import NoActivity from '../../components/NoActivity';
+import { media } from 'style';
+import NoActivity from 'components/NoActivity';
+import Timeline from 'components/Timeline';
+
+const FullScreen = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
 
 const Header = styled.div`
 	height: 50pt;
 `;
 
-const FullScreen = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: red;
-`;
-
 const LayoutParent = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: stretch;
   align-content: stretch;
-  position: absolute;
-  width: 100%;
-  height: 100%;
 `;
 
 const LayoutChild = styled.div`
-  background-color: blue;
   flex: ${props => props.left ? 0.25 : 0.75};
 	z-index: ${props => props.active ? 10 : 0};
 	${media.desktop`
@@ -49,11 +48,18 @@ const LayoutChild = styled.div`
 
 export class ActivityList extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
+  constructor() {
+    super();
+
+    this.state = {selectedActivityId: 0};
+  }
+
   componentWillMount() {
     this.props.doLoadActivities();
   }
 
   render() {
+    const { activities } = this.props;
     return (
       <FullScreen>
         <Helmet
@@ -64,8 +70,10 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
         />
 				<Header>Header</Header>
         <LayoutParent>
-          <LayoutChild left>pouet</LayoutChild>
-          <LayoutChild active>
+          <LayoutChild left active={!this.state.selectedActivityId}>
+            <Timeline activities={activities} />
+          </LayoutChild>
+          <LayoutChild>
             {this.props.children || (<NoActivity />)}
           </LayoutChild>
         </LayoutParent>

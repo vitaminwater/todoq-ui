@@ -3,10 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the activityList state domain
  */
-const selectActivityListDomain = () => (state) => { 
-  console.log(state.toJS());
-  return state.get('ActivityList');
-}
+const selectActivityListDomain = () => (state) => state.get('ActivityList');
 
 /**
  * Other specific selectors

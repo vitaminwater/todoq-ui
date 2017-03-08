@@ -1,11 +1,20 @@
-// import { take, call, put, select } from 'redux-saga/effects';
-import { takeLatest, take, cancel } from 'redux-saga/effects';
+import request from 'utils/request';
+import { takeLatest, take, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { LOAD_ACTIVITIES } from './constants';
 
+import { loadingActivities, setActivities } from './actions';
+
 export function* loadActivities(action) {
-  console.log(action);
+  const url = 'http://localhost:4000/activities';
+  try {
+    yield put(loadingActivities());
+    const activities = yield call(request, url);
+    yield put(setActivities(activities.data));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export function* activitiesSaga() {
