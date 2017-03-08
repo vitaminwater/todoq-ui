@@ -7,7 +7,6 @@
 import styled from 'styled-components';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
@@ -62,12 +61,6 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
     const { activities } = this.props;
     return (
       <FullScreen>
-        <Helmet
-          title="ActivityList"
-          meta={[
-            { name: 'description', content: 'Description of ActivityList' },
-          ]}
-        />
 				<Header>Header</Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>

@@ -59,6 +59,26 @@ export default function createRoutes(store) {
         },
       }]
     }, {
+      path: '/settings',
+      name: 'settings',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/Settings/reducer'),
+          import('containers/Settings/sagas'),
+          import('containers/Settings'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('settings', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
