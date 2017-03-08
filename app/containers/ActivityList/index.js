@@ -10,40 +10,11 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
-import messages from './messages';
 import { loadActivities } from './actions';
-import { media } from 'style';
+import messages from './messages';
+import { Header, FullScreen, LayoutParent, LayoutChild } from 'style';
 import NoActivity from 'components/NoActivity';
 import Timeline from 'components/Timeline';
-
-const FullScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-
-const Header = styled.div`
-	height: 50pt;
-`;
-
-const LayoutParent = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  align-content: stretch;
-`;
-
-const LayoutChild = styled.div`
-  flex: ${props => props.left ? 0.25 : 0.75};
-	z-index: ${props => props.active ? 10 : 0};
-	${media.desktop`
-	  position: absolute;
-		width: 100%; height: 100%;
-	`}
-`;
 
 export class ActivityList extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 

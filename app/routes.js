@@ -37,27 +37,29 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-      childRoutes: [{
-        path: '/log/:activity',
-        name: 'activityLog',
-        getComponent(nextState, cb) {
-          const importModules = Promise.all([
+      childRoutes: [
+        {
+          path: '/log/:activity',
+          name: 'activityLog',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
               import('containers/ActivityLog/reducer'),
               import('containers/ActivityLog/sagas'),
               import('containers/ActivityLog'),
-          ]);
+            ]);
 
-          const renderRoute = loadModule(cb);
+            const renderRoute = loadModule(cb);
 
-          importModules.then(([reducer, sagas, component]) => {
-            injectReducer('activityLog', reducer.default);
-            injectSagas(sagas.default);
-            renderRoute(component);
-          });
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('activityLog', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
 
-          importModules.catch(errorLoading);
-        },
-      }]
+            importModules.catch(errorLoading);
+          },
+        }
+      ]
     }, {
       path: '/settings',
       name: 'settings',
@@ -78,6 +80,49 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
+      childRoutes: [
+        {
+          path: 'activity/:activity_id',
+          name: 'settingsEditActivity',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/SettingsEditActivity/reducer'),
+              import('containers/SettingsEditActivity/sagas'),
+              import('containers/SettingsEditActivity'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('settingsEditActivity', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        }, {
+          path: 'activity',
+          name: 'settingsNewActivity',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/SettingsNewActivity/reducer'),
+              import('containers/SettingsNewActivity/sagas'),
+              import('containers/SettingsNewActivity'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('settingsNewActivity', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        }
+      ]
     }, {
       path: '*',
       name: 'notfound',

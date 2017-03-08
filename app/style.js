@@ -1,4 +1,5 @@
 import { css } from 'styled-components'
+import styled from 'styled-components'
 
 const sizes = {
   giant: 1170,
@@ -19,3 +20,34 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
   `
   return accumulator
 }, {})
+
+export const FullScreen = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Header = styled.div`
+	height: 50pt;
+`;
+
+export const LayoutParent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: stretch;
+`;
+
+export const LayoutChild = styled.div`
+  flex: ${props => props.left ? 0.25 : 0.75};
+	z-index: ${props => props.active ? 10 : 0};
+	${media.desktop`
+	  position: absolute;
+		width: 100%; height: 100%;
+	`}
+`;
+
+
