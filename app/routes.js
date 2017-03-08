@@ -22,17 +22,42 @@ export default function createRoutes(store) {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage'),
+          import('containers/ActivityList/reducer'),
+          import('containers/ActivityList/sagas'),
+          import('containers/ActivityList'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('ActivityList', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 
         importModules.catch(errorLoading);
       },
+      childRoutes: [{
+        path: '/log/:activity',
+        name: 'activityLog',
+        getComponent(nextState, cb) {
+          const importModules = Promise.all([
+              import('containers/ActivityLog/reducer'),
+              import('containers/ActivityLog/sagas'),
+              import('containers/ActivityLog'),
+          ]);
+
+          const renderRoute = loadModule(cb);
+
+          importModules.then(([reducer, sagas, component]) => {
+            injectReducer('activityLog', reducer.default);
+            injectSagas(sagas.default);
+            renderRoute(component);
+          });
+
+          importModules.catch(errorLoading);
+        },
+      }]
     }, {
       path: '*',
       name: 'notfound',
