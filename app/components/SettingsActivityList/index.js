@@ -1,6 +1,6 @@
 /**
 *
-* Timeline
+* SettingsActivityList
 *
 */
 
@@ -19,7 +19,7 @@ const Item = styled.div`
   
 `;
 
-class Timeline extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class SettingsActivityList extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { activities } = this.props;
     return (
@@ -38,8 +38,8 @@ class Timeline extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
-Timeline.propTypes = {
+SettingsActivityList.propTypes = {
 
 };
 
-export default Timeline;
+export default SettingsActivityList;

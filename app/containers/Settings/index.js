@@ -8,32 +8,39 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectSettings from './selectors';
+import { makeSelectActivities } from './selectors';
+import { loadActivities } from './actions';
 import messages from './messages';
-import ActivityForm from 'components/ActivityForm';
+import ActivityList from 'components/SettingsActivityList';
 
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  componentWillMount() {
+    this.props.doLoadActivities();
+  }
+
   render() {
+    const { activities } = this.props;
     return (
       <div>
         <FormattedMessage {...messages.header} />
-        <ActivityForm handleSubmit={console.log} />
+        <ActivityList activities={activities} />
       </div>
     );
   }
 }
 
 Settings.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  doLoadActivities: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  Settings: makeSelectSettings(),
+  activities: makeSelectActivities(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    doLoadActivities: () => dispatch(loadActivities()),
   };
 }
 

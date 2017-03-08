@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the settings state domain
+ * Direct selector to the activityList state domain
  */
 const selectSettingsDomain = () => (state) => state.get('settings');
 
@@ -14,12 +14,12 @@ const selectSettingsDomain = () => (state) => state.get('settings');
  * Default selector used by Settings
  */
 
-const makeSelectSettings = () => createSelector(
+const makeSelectActivities = () => createSelector(
   selectSettingsDomain(),
-  (substate) => substate.toJS()
+  (activityListState) => activityListState.get('activities'),
 );
 
-export default makeSelectSettings;
 export {
+  makeSelectActivities,
   selectSettingsDomain,
 };

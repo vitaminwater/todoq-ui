@@ -1,20 +1,26 @@
 /*
  *
- * Settings reducer
+ * ActivityList reducer
  *
  */
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  LOADING_ACTIVITIES,
+  SET_ACTIVITIES,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  activities: [],
+  loading: false,
+});
 
 function settingsReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOADING_ACTIVITIES:
+      return state.set('loading', true);
+    case SET_ACTIVITIES:
+      return state.set('activities', action.activities).set('loading', false);
     default:
       return state;
   }
