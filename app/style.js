@@ -1,5 +1,6 @@
 import { css } from 'styled-components'
 import styled from 'styled-components'
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 const sizes = {
   giant: 1170,
@@ -21,32 +22,36 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
   return accumulator
 }, {})
 
-export const FullScreen = styled.div`
+const palette = attr => props => props.muiTheme.baseTheme.palette[attr];
+
+export const FullScreen = muiThemeable()(styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
+  background-color: ${palette('canvasColor')};
   width: 100%;
   height: 100%;
-`;
+`);
 
 export const Header = styled.div`
 	height: 50pt;
 `;
 
-export const LayoutParent = styled.div`
+export const LayoutParent = muiThemeable()(styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
+  background-color: ${palette('canvasColor')};
   align-items: stretch;
   justify-content: space-around;
-`;
+`);
 
-export const LayoutChild = styled.div`
+export const LayoutChild = muiThemeable()(styled.div`
   flex: ${props => props.left ? 0.33 : 0.64};
 	z-index: ${props => props.active ? 10 : 0};
-  background-color: white;
+  background-color: ${palette('canvasColor')};
 	${media.desktop`
 	  position: absolute;
 		width: 100%; height: 100%;
 	`}
-`;
+`);

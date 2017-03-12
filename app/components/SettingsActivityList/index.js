@@ -12,7 +12,7 @@ import messages from './messages';
 
 import {List, ListItem} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import {grey400, lightWhite} from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -49,7 +49,6 @@ class SettingsActivityList extends React.PureComponent { // eslint-disable-line 
                 primaryText={activity.get('name')}
                 secondaryText={
                   <p>
-                    <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
                     I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
                   </p>
                 }
