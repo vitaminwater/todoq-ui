@@ -22,13 +22,14 @@ const Item = styled.div`
 class SettingsActivityList extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { activities } = this.props;
+
     return (
       <List>
         {
           activities.map((activity) => {
             return (
-              <Item key={activity.id}>
-                {activity.name}
+              <Item key={activity.get('id')}>
+                {activity.get('name')}
               </Item>
             );
           })

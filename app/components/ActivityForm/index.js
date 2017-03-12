@@ -22,10 +22,10 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <div>
           <div>
-            <Field fullWidth={true} name='name' component={TextField} type='text' label='pouet' />
+            <Field fullWidth={true} name='name' component={TextField} type='text' label='Activity name' />
           </div>
           <div>
             <Field fullWidth={true} name='type' component={SelectField} hintText='Select a type'>
@@ -34,10 +34,13 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
             </Field>
           </div>
           <div>
-            <RaisedButton label='Create activity' />
+            <Field fullWidth={true} name='priority' component={TextField} type='number' label='Activity priority' />
           </div>
-        </form>
-      </div>
+          <div>
+            <RaisedButton type='submit' label='Create activity' />
+          </div>
+        </div>
+      </form>
     );
   }
 }

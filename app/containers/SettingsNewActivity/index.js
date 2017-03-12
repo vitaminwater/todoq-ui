@@ -11,18 +11,19 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectSettingsNewActivity from './selectors';
 import messages from './messages';
 
+import { createActivity } from 'containers/Settings/actions';
 import ActivityForm from 'components/ActivityForm';
 
 export class SettingsNewActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  _handleSubmit(activity) {
-    console.log(activity);
+  _handleSubmit = (activity) => {
+    this.props.createActivity(activity);
   }
 
   render() {
     return (
       <div>
-        <ActivityForm />
+        <ActivityForm onSubmit={this._handleSubmit} />
       </div>
     );
   }
@@ -38,6 +39,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    createActivity: (activity) => dispatch(createActivity(activity)),
     dispatch,
   };
 }

@@ -1,27 +1,41 @@
-import request from 'utils/request';
+import { fromJS } from 'immutable';
+import { jsonPOST } from 'utils/request';
 import { takeLatest, take, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { LOAD_ACTIVITIES } from './constants';
+import { LOAD_ACTIVITIES, UPDATE_ACTIVITY } from './constants';
 
-import { loadingActivities, setActivities } from './actions';
+import { loadingDayActivities, setDayActivities } from './actions';
+import { updatingActivity, updatedActivity } from './actions';
 
-export function* loadActivities(action) {
+function* loadDayActivities(action) {
   const url = 'http://localhost:4000/activities';
   try {
-    yield put(loadingActivities());
+    yield put(loadingDayActivities());
     const activities = yield call(request, url);
-    yield put(setActivities(activities.data));
+    yield put(setDayActivities(fromJS(activities.data)));
   } catch (err) {
     console.log(err);
   }
 }
 
-export function* activitiesSaga() {
-  const watcher = yield takeLatest(LOAD_ACTIVITIES, loadActivities);
+function* updateActivity(action) {
+  const url = `http://localhost:4000/activity/${action.activity.id}`;
+  try {
+    yield put(updatingActivity(action.activity));
+    const activity = yield call(jsonPOST, url, { activity: action.activity.toJS() });
+    yield put(updatedActivity(fromJS(activity.data)));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function* activitiesSaga() {
+  const loadDayActivitiesWatcher = yield takeLatest(LOAD_DAY_ACTIVITIES, loadDayActivities);
+  const updateActivity = yield takeLatest(UPDATE_ACTIVITY, updateActivity);
 
   yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  yield cancel(loadDayActivitiesWatcher);
 }
 
 export default [

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
-import { loadActivities } from './actions';
+import { loadDayActivities } from './actions';
 import messages from './messages';
 import { Link } from 'react-router';
 

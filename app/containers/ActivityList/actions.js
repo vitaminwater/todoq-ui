@@ -5,26 +5,51 @@
  */
 
 import {
-  LOAD_ACTIVITIES,
-  LOADING_ACTIVITIES,
-  SET_ACTIVITIES,
+  LOAD_DAY_ACTIVITIES,
+  LOADING_DAY_ACTIVITIES,
+  SET_DAY_ACTIVITIES,
+
+  UPDATE_ACTIVITY,
+  UPDATING_ACTIVITY,
+  UPDATED_ACTIVITY,
 } from './constants';
 
-export function loadActivities() {
+export function loadDayActivities() {
   return {
-    type: LOAD_ACTIVITIES,
+    type: LOAD_DAY_ACTIVITIES,
   };
 }
 
-export function loadingActivities() {
+export function loadingDayActivities() {
   return {
-    type: LOADING_ACTIVITIES,
+    type: LOADING_DAY_ACTIVITIES,
   }
 }
 
-export function setActivities(activities) {
+export function setDayActivities(activities) {
   return {
-    type: SET_ACTIVITIES,
+    type: SET_DAY_ACTIVITIES,
     activities,
+  }
+}
+
+export function updateActivity(activity) {
+  return {
+    type: UPDATE_ACTIVITY,
+    activity,
+  }
+}
+
+export function updatingActivity(activity) {
+  return {
+    type: UPDATING_ACTIVITY,
+    activity,
+  }
+}
+
+export function updatedActivity(activity) {
+  return {
+    type: UPDATED_ACTIVITY,
+    activity,
   }
 }
