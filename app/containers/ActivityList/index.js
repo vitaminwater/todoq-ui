@@ -61,7 +61,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    doLoadActivities: () => dispatch(loadActivities()),
+    doLoadActivities: () => dispatch(loadDayActivities()),
   };
 }
 

@@ -1,9 +1,9 @@
 import { fromJS } from 'immutable';
-import { jsonPOST } from 'utils/request';
+import { request, jsonPOST } from 'utils/request';
 import { takeLatest, take, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { LOAD_ACTIVITIES, UPDATE_ACTIVITY } from './constants';
+import { LOAD_DAY_ACTIVITIES, UPDATE_ACTIVITY } from './constants';
 
 import { loadingDayActivities, setDayActivities } from './actions';
 import { updatingActivity, updatedActivity } from './actions';
@@ -32,10 +32,11 @@ function* updateActivity(action) {
 
 function* activitiesSaga() {
   const loadDayActivitiesWatcher = yield takeLatest(LOAD_DAY_ACTIVITIES, loadDayActivities);
-  const updateActivity = yield takeLatest(UPDATE_ACTIVITY, updateActivity);
+  const updateActivityWatcher = yield takeLatest(UPDATE_ACTIVITY, updateActivity);
 
   yield take(LOCATION_CHANGE);
   yield cancel(loadDayActivitiesWatcher);
+  yield cancel(updateActivityWatcher);
 }
 
 export default [

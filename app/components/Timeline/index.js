@@ -27,8 +27,8 @@ class Timeline extends React.PureComponent { // eslint-disable-line react/prefer
         {
           activities.map((activity) => {
             return (
-              <Item key={activity.id}>
-                {activity.name}
+              <Item key={activity.get('id')}>
+                {activity.get('name')}
               </Item>
             );
           })
