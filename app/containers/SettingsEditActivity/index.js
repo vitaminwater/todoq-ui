@@ -11,11 +11,13 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectSettingsEditActivity from './selectors';
 import messages from './messages';
 
+import ActivityForm from 'components/ActivityForm';
+
 export class SettingsEditActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <FormattedMessage {...messages.header} />
+        <ActivityForm />
       </div>
     );
   }

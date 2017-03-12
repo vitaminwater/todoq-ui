@@ -16,6 +16,28 @@ export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
 
+  const editActivity = (path) => ({
+    path: 'activity/:activity_id/edit',
+    name: 'editActivity',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        import('containers/SettingsEditActivity/reducer'),
+        import('containers/SettingsEditActivity/sagas'),
+        import('containers/SettingsEditActivity'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([reducer, sagas, component]) => {
+        injectReducer('settingsEditActivity', reducer.default);
+        injectSagas(sagas.default);
+        renderRoute(component);
+      });
+
+      importModules.catch(errorLoading);
+    },
+  });
+
   return [
     {
       path: '/',
@@ -39,7 +61,7 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/log/:activity',
+          path: 'activity/:activity_id',
           name: 'activityLog',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
@@ -58,10 +80,10 @@ export default function createRoutes(store) {
 
             importModules.catch(errorLoading);
           },
-        }
+        }, editActivity('activity/:activity_id/edit'),
       ]
     }, {
-      path: '/settings',
+      path: 'settings',
       name: 'settings',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -81,27 +103,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        {
-          path: 'activity/:activity_id',
-          name: 'settingsEditActivity',
-          getComponent(nextState, cb) {
-            const importModules = Promise.all([
-              import('containers/SettingsEditActivity/reducer'),
-              import('containers/SettingsEditActivity/sagas'),
-              import('containers/SettingsEditActivity'),
-            ]);
-
-            const renderRoute = loadModule(cb);
-
-            importModules.then(([reducer, sagas, component]) => {
-              injectReducer('settingsEditActivity', reducer.default);
-              injectSagas(sagas.default);
-              renderRoute(component);
-            });
-
-            importModules.catch(errorLoading);
-          },
-        }, {
+        editActivity('activity/:activity_id'), {
           path: 'activity',
           name: 'settingsNewActivity',
           getComponent(nextState, cb) {

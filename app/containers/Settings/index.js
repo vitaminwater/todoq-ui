@@ -11,8 +11,10 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
 import { loadActivities } from './actions';
-import { Header, FullScreen, LayoutParent, LayoutChild } from 'style';
 import messages from './messages';
+import { Link } from 'react-router';
+
+import { Header, FullScreen, LayoutParent, LayoutChild } from 'style';
 import ActivityList from 'components/SettingsActivityList';
 
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -31,7 +33,11 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
     const { activities } = this.props;
     return (
       <FullScreen>
-				<Header>Header</Header>
+        <Header>
+          Header
+          <Link to="/settings/activity">New activity</Link>
+          <Link to="/">Home</Link>
+      </Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
             <ActivityList activities={activities} />

@@ -12,6 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
 import { loadActivities } from './actions';
 import messages from './messages';
+import { Link } from 'react-router';
+
 import { Header, FullScreen, LayoutParent, LayoutChild } from 'style';
 import NoActivity from 'components/NoActivity';
 import Timeline from 'components/Timeline';
@@ -32,7 +34,10 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
     const { activities } = this.props;
     return (
       <FullScreen>
-				<Header>Header</Header>
+        <Header>
+          Header
+          <Link to="/settings">Settings</Link>
+        </Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
             <Timeline activities={activities} />
