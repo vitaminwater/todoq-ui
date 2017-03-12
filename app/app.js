@@ -49,15 +49,6 @@ import './global-styles';
 // Import root routes
 import createRoutes from './routes';
 
-// UIKit
-
-import UIkit from 'uikit';
-import Icons from 'uikit/dist/js/uikit-icons';
-import 'uikit/dist/css/uikit.min.css';
-
-// loads the Icon plugin
-UIkit.use(Icons);
-
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
 // Optionally, this could be changed to leverage a created history

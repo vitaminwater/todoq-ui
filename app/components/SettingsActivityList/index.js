@@ -10,14 +10,29 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import {List, ListItem} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 
-const Item = styled.div`
-  
-`;
+const iconButtonElement = (
+  <IconButton
+    touch={true}
+    tooltip="more"
+    tooltipPosition="bottom-left" >
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
+
+const rightIconMenu = (
+  <IconMenu iconButtonElement={iconButtonElement}>
+    <MenuItem>Reply</MenuItem>
+    <MenuItem>Forward</MenuItem>
+    <MenuItem>Delete</MenuItem>
+  </IconMenu>
+);
 
 class SettingsActivityList extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -28,9 +43,17 @@ class SettingsActivityList extends React.PureComponent { // eslint-disable-line 
         {
           activities.map((activity) => {
             return (
-              <Item key={activity.get('id')}>
-                {activity.get('name')}
-              </Item>
+              <ListItem
+                key={activity.get('id')}
+                rightIconButton={rightIconMenu}
+                primaryText={activity.get('name')}
+                secondaryText={
+                  <p>
+                    <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
+                    I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
+                  </p>
+                }
+                secondaryTextLines={2} />
             );
           })
         }

@@ -38,12 +38,13 @@ export const LayoutParent = styled.div`
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  align-content: stretch;
+  justify-content: space-around;
 `;
 
 export const LayoutChild = styled.div`
-  flex: ${props => props.left ? 0.25 : 0.75};
+  flex: ${props => props.left ? 0.33 : 0.64};
 	z-index: ${props => props.active ? 10 : 0};
+  background-color: white;
 	${media.desktop`
 	  position: absolute;
 		width: 100%; height: 100%;
