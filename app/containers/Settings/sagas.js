@@ -36,6 +36,7 @@ export function* settingsSaga() {
 
   yield take(LOCATION_CHANGE);
   yield cancel(loadActivitiesWatcher);
+  yield cancel(createActivityWatcher);
 }
 
 export default [

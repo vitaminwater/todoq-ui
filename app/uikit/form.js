@@ -89,6 +89,7 @@ export class SelectForm extends React.PureComponent {
 
 const InlineDiv = styled.div`
   display: inline;
+  cursor: pointer;
 `;
 
 const Checkbox = styled.div`
@@ -173,6 +174,7 @@ const ColorDiv = styled.div`
   width: 15pt;
   height: 15pt;
   margin-right: 5pt;
+  cursor: pointer;
 `;
 
 const COLORS = ['#BCD5E1', '#D2EADB', '#CFC2DC', '#EDEEDA', '#BAEBF1'];
