@@ -14,7 +14,7 @@ import { loadActivities } from './actions';
 import messages from './messages';
 import { Link } from 'react-router';
 
-import { Header, FullScreen, LayoutParent, LayoutChild } from 'style';
+import { Header, FullScreen, LayoutParent, LayoutChild } from 'uikit/layout';
 import ActivityList from 'components/SettingsActivityList';
 
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -34,10 +34,9 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
     return (
       <FullScreen>
         <Header>
-          Header
-          <Link to="/settings/activity">New activity</Link>
+          <Link to="/settings/activity">New activity</Link>&nbsp;
           <Link to="/">Home</Link>
-      </Header>
+        </Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
             <ActivityList activities={activities} />

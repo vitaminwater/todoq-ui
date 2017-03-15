@@ -14,7 +14,7 @@ import { loadDayActivities } from './actions';
 import messages from './messages';
 import { Link } from 'react-router';
 
-import { Header, FullScreen, LayoutParent, LayoutChild } from 'style';
+import { Header, FullScreen, LayoutParent, LayoutChild } from 'uikit/layout';
 import NoActivity from 'components/NoActivity';
 import Timeline from 'components/Timeline';
 
@@ -35,7 +35,6 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
     return (
       <FullScreen>
         <Header>
-          Header
           <Link to="/settings">Settings</Link>
         </Header>
         <LayoutParent>

@@ -5,19 +5,11 @@
 */
 
 import React from 'react';
-import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Item = styled.div`
-  
-`;
+import { List, Item } from 'uikit/list';
 
 class Timeline extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
