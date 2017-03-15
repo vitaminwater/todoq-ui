@@ -9,16 +9,24 @@ injectGlobal`
   }
 
   body {
-    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 200;
   }
 
   body.fontLoaded {
-    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
   }
 
   #app {
     min-height: 100%;
     min-width: 100%;
+  }
+
+  hr {
+    border-top: none;
+    border-bottom: 1px dashed #E0E0E0;
   }
 
 }

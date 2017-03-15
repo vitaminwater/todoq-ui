@@ -6,6 +6,6 @@ export const List = styled.div`
 `;
 
 export const Item = styled.div`
-  
+  background-color: white;
+  border-bottom: thick dotted #ff0000;
 `;
-
