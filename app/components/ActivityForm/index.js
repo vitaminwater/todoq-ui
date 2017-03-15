@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
   
-import { InputForm, TextAreaForm, SelectForm, RadioForm, DateForm, Button, ColorPicker } from 'uikit/form';
+import { InputForm, TextAreaForm, SelectForm, RadioForm, DateForm, Button, ColorPicker } from 'components/UIKit/form';
 
 const SmallDiv = styled.div`
   max-width: 100pt;

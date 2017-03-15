@@ -9,7 +9,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import { List, Item } from 'uikit/list';
+import { List, Item } from 'components/UIKit/list';
 
 class Timeline extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

@@ -193,3 +193,7 @@ export class ColorPicker extends React.PureComponent {
   }
 
 }
+
+export class IconUpload extends React.PureComponent {
+
+}

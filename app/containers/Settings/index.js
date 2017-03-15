@@ -14,7 +14,7 @@ import { loadActivities } from './actions';
 import messages from './messages';
 import { Link } from 'react-router';
 
-import { Header, FullScreen, LayoutParent, LayoutChild } from 'uikit/layout';
+import { Header, FullScreen, LayoutParent, LayoutChild } from 'components/UIKit/layout';
 import ActivityList from 'components/SettingsActivityList';
 
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

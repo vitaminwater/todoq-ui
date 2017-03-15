@@ -14,7 +14,7 @@ import { loadDayActivities } from './actions';
 import messages from './messages';
 import { Link } from 'react-router';
 
-import { Header, FullScreen, LayoutParent, LayoutChild } from 'uikit/layout';
+import { Header, FullScreen, LayoutParent, LayoutChild } from 'components/UIKit/layout';
 import NoActivity from 'components/NoActivity';
 import Timeline from 'components/Timeline';
 
