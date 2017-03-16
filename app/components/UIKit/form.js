@@ -196,7 +196,6 @@ export class ColorPicker extends React.PureComponent {
 
 const RelativeDiv = styled.div`
   position: relative;
-  cursor: pointer;
 `;
 
 const HiddenFileInput = styled.input`
@@ -204,6 +203,7 @@ const HiddenFileInput = styled.input`
   opacity: 0;
   width: 100%;
   height: 100%;
+  cursor: pointer;
   &:focus { outline:none; }
 `;
 
