@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 import { List, Item } from 'components/UIKit/list';
+import SettingsListItem from 'components/SettingsListItem';
 
 class SettingsActivityList extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -21,9 +22,7 @@ class SettingsActivityList extends React.PureComponent { // eslint-disable-line 
         {
           activities.map((activity) => {
             return (
-              <Item key={activity.get('id')}>
-                Lol
-              </Item>
+              <SettingsListItem key={activity.get('id')} activity={activity} />
             );
           })
         }

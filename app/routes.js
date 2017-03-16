@@ -103,7 +103,8 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        editActivity('activity/:activity_id'), {
+        editActivity('activity/:activity_id'),
+        {
           path: 'activity',
           name: 'settingsNewActivity',
           getComponent(nextState, cb) {
