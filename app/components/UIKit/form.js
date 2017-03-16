@@ -194,6 +194,45 @@ export class ColorPicker extends React.PureComponent {
 
 }
 
+const RelativeDiv = styled.div`
+  position: relative;
+  cursor: pointer;
+`;
+
+const HiddenFileInput = styled.input`
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  &:focus { outline:none; }
+`;
+
+const IconImg = styled.img`
+  display: block;
+  width: 50pt;
+  height: 50pt;
+  border: none;
+`;
+
+const IconLabel = styled.label`
+  display: block;
+  text-align: center;
+  font-size: 0.9em;
+`;
+
 export class IconUpload extends React.PureComponent {
+
+  render() {
+    const { onChange, value } = this.props.input;
+    return (
+      <RelativeDiv>
+        <HiddenFileInput type='file' name='upload' onChange={(e) => onChange(e.target.files[0])} />
+        <IconLabel>
+          <IconImg src={value} />  
+          Change<br />Icon
+        </IconLabel>
+      </RelativeDiv>
+    );
+  }
 
 }

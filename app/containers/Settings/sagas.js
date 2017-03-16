@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { request, jsonPOST } from 'utils/request';
+import { request, jsonPOST, postMultipart } from 'utils/request';
 import { takeLatest, take, takeEvery, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
@@ -23,7 +23,7 @@ export function* createActivity(action) {
 
   try {
     yield put(creatingActivity(action.activity));
-    const activity = yield call(jsonPOST, url, { activity: action.activity.toJS() });
+    const activity = yield call(postMultipart, url, { activity: action.activity.toJS() });
     yield put(createdActivity(fromJS(activity.data)));
   } catch (err) {
     console.log(err);

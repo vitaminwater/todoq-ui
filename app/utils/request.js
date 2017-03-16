@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import _ from 'lodash';
 
 /**
  * Parses the JSON returned by a network request
@@ -49,5 +50,18 @@ export function jsonPOST(url, data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data),
+  });
+}
+
+export function postMultipart(url, data) {
+  console.log('postMultipart', data);
+  var formData = new FormData()
+  
+  _.reduce(data.activity, (acc, v, k) => {
+    formData.set(`activity[${k}]`, v);
+  }, formData);
+  return request(url, {
+    method: 'POST',
+    body: formData,
   });
 }

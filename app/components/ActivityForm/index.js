@@ -11,10 +11,16 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
   
-import { InputForm, TextAreaForm, SelectForm, RadioForm, DateForm, Button, ColorPicker } from 'components/UIKit/form';
+import { InputForm, TextAreaForm, SelectForm, RadioForm, DateForm, Button, ColorPicker, IconUpload } from 'components/UIKit/form';
 
 const SmallDiv = styled.div`
   max-width: 100pt;
+`;
+
+const InlineDiv = styled.div`
+  display: inline-block;
+  margin-right: 30pt;
+  vertical-align: middle;
 `;
 
 const ButtonContainer = styled.div`
@@ -28,7 +34,12 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
       <form onSubmit={handleSubmit}>
         <Field component={InputForm} name='name' type='text' label='Name' placeholder='ex: Check emails' /><br />
         <Field component={TextAreaForm} name='why' label='Why do this ?' placeholder='ex: I should start and end my days with an empty inbox.' /><br />
-        <Field component={ColorPicker} name='color' label='Color' /><br />
+        <InlineDiv>
+          <Field component={IconUpload} name='image' label='Change Icon' />
+        </InlineDiv>
+        <InlineDiv>
+          <Field component={ColorPicker} name='color' label='Color' />
+        </InlineDiv>
         <hr />
         <Field component={SelectForm} name='invest' label='At least :'>
           <option value={30}>30 min</option>
@@ -68,7 +79,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
           value: false,
         },]} label='This task cannot be skipped when full-focus mode is ON' />
         <ButtonContainer>
-          <Button>Create task</Button>
+          <Button>Create activity</Button>
         </ButtonContainer>
       </form>
     );
