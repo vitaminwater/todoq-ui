@@ -28,8 +28,6 @@ const Image = styled.img`
   float: left;
   width: 40pt;
   height: 40pt;
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
 `;
 
 const SubText = styled.span`

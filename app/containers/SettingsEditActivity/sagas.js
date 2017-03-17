@@ -1,11 +1,29 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { fromJS } from 'immutable';
+import { request } from 'utils/request';
+import { takeLatest, take, cancel, call, put } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
-// Individual exports for testing
-export function* defaultSaga() {
-  // See example in containers/HomePage/sagas.js
+import { LOAD_ACTIVITY } from './constants';
+import { loadingActivity, setActivity } from './actions';
+
+function* loadActivity(action) {
+  const url = `http://localhost:4000/activities/${action.activityId}`;
+  try {
+    yield put(loadingActivity());
+    const activity = yield call(request, url);
+    yield put(setActivity(fromJS(activity.data)));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-// All sagas to be loaded
+export function* settingsSaga() {
+  const loadActivityWatcher = yield takeLatest(LOAD_ACTIVITY, loadActivity);
+
+  yield take(LOCATION_CHANGE);
+  yield cancel(loadActivityWatcher);
+}
+
 export default [
-  defaultSaga,
+  settingsSaga,
 ];

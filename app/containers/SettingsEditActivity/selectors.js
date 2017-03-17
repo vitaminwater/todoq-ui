@@ -16,10 +16,7 @@ const selectSettingsEditActivityDomain = () => (state) => state.get('settingsEdi
 
 const makeSelectSettingsEditActivity = () => createSelector(
   selectSettingsEditActivityDomain(),
-  (substate) => substate.toJS()
+  (settingsEditActivityState) => settingsEditActivityState.get('activity'),
 );
 
 export default makeSelectSettingsEditActivity;
-export {
-  selectSettingsEditActivityDomain,
-};

@@ -1,12 +1,11 @@
 import { fromJS } from 'immutable';
-import { request, jsonPOST } from 'utils/request';
+import { request, } from 'utils/request';
 import { takeLatest, take, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { LOAD_DAY_ACTIVITIES, UPDATE_ACTIVITY } from './constants';
+import { LOAD_DAY_ACTIVITIES, } from './constants';
 
 import { loadingDayActivities, setDayActivities } from './actions';
-import { updatingActivity, updatedActivity } from './actions';
 
 function* loadDayActivities(action) {
   const url = 'http://localhost:4000/activities';
@@ -14,17 +13,6 @@ function* loadDayActivities(action) {
     yield put(loadingDayActivities());
     const activities = yield call(request, url);
     yield put(setDayActivities(fromJS(activities.data)));
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-function* updateActivity(action) {
-  const url = `http://localhost:4000/activity/${action.activity.id}`;
-  try {
-    yield put(updatingActivity(action.activity));
-    const activity = yield call(jsonPOST, url, { activity: action.activity.toJS() });
-    yield put(updatedActivity(fromJS(activity.data)));
   } catch (err) {
     console.log(err);
   }

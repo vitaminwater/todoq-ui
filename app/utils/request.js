@@ -54,7 +54,6 @@ export function jsonPOST(url, data) {
 }
 
 export function postMultipart(url, data) {
-  console.log('postMultipart', data);
   var formData = new FormData()
   
   _.reduce(data.activity, (acc, v, k) => {
@@ -62,6 +61,18 @@ export function postMultipart(url, data) {
   }, formData);
   return request(url, {
     method: 'POST',
+    body: formData,
+  });
+}
+
+export function putMultipart(url, data) {
+  var formData = new FormData()
+  
+  _.reduce(data.activity, (acc, v, k) => {
+    formData.set(`activity[${k}]`, v);
+  }, formData);
+  return request(url, {
+    method: 'PUT',
     body: formData,
   });
 }

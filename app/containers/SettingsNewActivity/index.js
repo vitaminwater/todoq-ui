@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectSettingsNewActivity from './selectors';
 import messages from './messages';
 
-import { createActivity } from 'containers/Settings/actions';
+import { createActivity } from 'common/actions';
 import ActivityForm from 'components/ActivityForm';
 
 export class SettingsNewActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

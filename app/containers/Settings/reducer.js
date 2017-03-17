@@ -8,28 +8,25 @@ import { fromJS } from 'immutable';
 import {
   LOADING_ACTIVITIES,
   SET_ACTIVITIES,
-
-  CREATING_ACTIVITY,
-  CREATED_ACTIVITY,
 } from './constants';
 
 import {
+  CREATING_ACTIVITY,
+  CREATED_ACTIVITY,
+
   UPDATING_ACTIVITY,
   UPDATED_ACTIVITY,
-} from 'containers/ActivityList/constants';
+} from 'common/constants';
+
+import {
+  updatingActivity,
+  updatedActivity,
+} from 'common/reducer';
 
 const initialState = fromJS({
   activities: [],
   loading: false,
 });
-
-const activityForAction = (state, action) => state
-  .get('activities')
-  .find((activity) => activity.id == action.activity.id)
-
-const activityIndex = (state, action) => state
-  .get('activities')
-  .find((activity) => activity.id == action.activity.id);
 
 function settingsReducer(state = initialState, action) {
   switch (action.type) {
@@ -49,22 +46,10 @@ function settingsReducer(state = initialState, action) {
         .set('activities', activities)
         .set('creatingActivity', false);
 
-    case UPDATING_ACTIVITY: {
-      const activities = state
-        .get('activities')
-        .update(activityIndex(state, action), () => activityForAction(state, action).set('updating', true));
-      return state.set('activities', activities);
-    }
-    case UPDATED_ACTIVITY: {
-      const activities = state
-        .get('activities')
-        .update(activityIndex(state, action), () => activityForAction(state, action));
-      return state
-        .set('activities', activities)
-        .set('updating', false)
-        .set('lastUpdate', new Date());
-    }
-
+    case UPDATING_ACTIVITY:
+      return updatingActivity(state, action.activity);
+    case UPDATED_ACTIVITY:
+      return updatedActivity(state, action.activity);
     default:
       return state;
   }

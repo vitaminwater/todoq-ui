@@ -17,7 +17,7 @@ export default function createRoutes(store) {
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
 
   const editActivity = (path) => ({
-    path: 'activity/:activity_id/edit',
+    path: 'activity/:activityId/edit',
     name: 'editActivity',
     getComponent(nextState, cb) {
       const importModules = Promise.all([
@@ -61,7 +61,7 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: 'activity/:activity_id',
+          path: 'activity/:activityId',
           name: 'activityLog',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
@@ -80,7 +80,7 @@ export default function createRoutes(store) {
 
             importModules.catch(errorLoading);
           },
-        }, editActivity('activity/:activity_id/edit'),
+        }, editActivity('activity/:activityId/edit'),
       ]
     }, {
       path: 'settings',
@@ -103,7 +103,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
       childRoutes: [
-        editActivity('activity/:activity_id'),
+        editActivity('activity/:activityId'),
         {
           path: 'activity',
           name: 'settingsNewActivity',

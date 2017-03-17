@@ -11,34 +11,42 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectSettingsEditActivity from './selectors';
 import messages from './messages';
 
+import { loadActivity } from './actions';
+import { updateActivity } from 'common/actions';
 import ActivityForm from 'components/ActivityForm';
 
 export class SettingsEditActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  componentWillMount() {
+  _handleSubmit = (activity) => {
+    this.props.updateActivity(activity);
+  }
 
+  componentWillMount() {
+    const { activityId } = this.props.params;
+    this.props.loadActivity(activityId);
   }
 
   render() {
+    const { activity } = this.props;
     return (
       <div>
-        <ActivityForm />
+        <ActivityForm onSubmit={this._handleSubmit} initialValues={activity} />
       </div>
     );
   }
 }
 
 SettingsEditActivity.propTypes = {
-  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  SettingsEditActivity: makeSelectSettingsEditActivity(),
+  activity: makeSelectSettingsEditActivity(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    loadActivity: (activityId) => dispatch(loadActivity(activityId)),
+    updateActivity: (activity) => dispatch(updateActivity(activity)),
   };
 }
 
