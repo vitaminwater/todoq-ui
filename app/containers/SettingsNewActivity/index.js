@@ -40,7 +40,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     createActivity: (activity) => dispatch(createActivity(activity)),
-    dispatch,
   };
 }
 
