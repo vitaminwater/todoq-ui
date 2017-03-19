@@ -18,7 +18,7 @@ function settingsEditActivityReducer(state = initialState, action) {
       return state.set('loading', true);
     case SET_ACTIVITY:
       return state.set('activity', action.activity)
-                  .set('loading', true);
+                  .set('loading', false);
     default:
       return state;
   }

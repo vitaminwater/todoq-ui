@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import { initialize } from 'redux-form';
 import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
   
 import { InputForm, TextAreaForm, SelectForm, RadioForm, DateForm, Button, ColorPicker, IconUpload } from 'components/UIKit/form';
@@ -28,6 +29,13 @@ const ButtonContainer = styled.div`
 `;
 
 class ActivityForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  
+  componentWillReceiveProps(nextProps) {
+    if (this.props.initialValues != nextProps.initialValues) {
+      this.props.initialize(nextProps.initialValues);
+    }
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -100,7 +108,10 @@ ActivityForm = connect(
     return {
       type,
     }
-  }
+  },
+  dispatch => ({
+    initialize: (initialValues) => dispatch(initialize('activityForm', initialValues)),
+  })
 )(ActivityForm);
 
 export default ActivityForm;

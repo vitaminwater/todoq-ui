@@ -4,6 +4,7 @@ import { takeLatest, take, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { LOAD_DAY_ACTIVITIES, } from './constants';
+import { UPDATE_ACTIVITY } from 'common/constants';
 
 import { loadingDayActivities, setDayActivities } from './actions';
 
@@ -20,11 +21,9 @@ function* loadDayActivities(action) {
 
 function* activitiesSaga() {
   const loadDayActivitiesWatcher = yield takeLatest(LOAD_DAY_ACTIVITIES, loadDayActivities);
-  const updateActivityWatcher = yield takeLatest(UPDATE_ACTIVITY, updateActivity);
 
   yield take(LOCATION_CHANGE);
   yield cancel(loadDayActivitiesWatcher);
-  yield cancel(updateActivityWatcher);
 }
 
 export default [

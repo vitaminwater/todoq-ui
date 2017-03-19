@@ -30,7 +30,7 @@ export class SettingsNewActivity extends React.PureComponent { // eslint-disable
 }
 
 SettingsNewActivity.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  createActivity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

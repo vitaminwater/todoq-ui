@@ -26,11 +26,20 @@ export class SettingsEditActivity extends React.PureComponent { // eslint-disabl
     this.props.loadActivity(activityId);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { activityId } = this.props.params;
+    const { activityId: nextActivityId } = nextProps.params;
+    if (activityId != nextActivityId) {
+      this.props.loadActivity(nextActivityId);
+    }
+    return;
+  }
+
   render() {
     const { activity } = this.props;
     return (
       <div>
-        <ActivityForm onSubmit={this._handleSubmit} initialValues={activity} />
+        <ActivityForm onSubmit={this._handleSubmit} initialValues={activity} activityId={activity && activity.get('id')} />
       </div>
     );
   }

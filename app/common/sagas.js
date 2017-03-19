@@ -15,6 +15,7 @@ import { updatingActivity, updatedActivity, creatingActivity, createdActivity } 
 
 function* updateActivity(action) {
   const url = `http://localhost:4000/activities/${action.activity.get('id')}`;
+  console.log('updateActivity');
   try {
     yield put(updatingActivity(action.activity));
     const activity = yield call(putMultipart, url, { activity: action.activity.toJS() });
@@ -39,10 +40,6 @@ export function* createActivity(action) {
 function* commonSaga() {
   const updateActivityWatcher = yield takeEvery(UPDATE_ACTIVITY, updateActivity);
   const createActivityWatcher = yield takeEvery(CREATE_ACTIVITY, createActivity);
-
-  yield take(LOCATION_CHANGE);
-  yield cancel(updateActivityWatcher);
-  yield cancel(createActivityWatcher);
 }
 
 export default [
