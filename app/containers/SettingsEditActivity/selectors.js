@@ -1,11 +1,6 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the settingsEditActivity state domain
- */
-const selectSettingsEditActivityDomain = () => (state) => state.get('settingsEditActivity');
-
-/**
  * Other specific selectors
  */
 
@@ -14,9 +9,6 @@ const selectSettingsEditActivityDomain = () => (state) => state.get('settingsEdi
  * Default selector used by SettingsEditActivity
  */
 
-const makeSelectSettingsEditActivity = () => createSelector(
-  selectSettingsEditActivityDomain(),
-  (settingsEditActivityState) => settingsEditActivityState.get('activity'),
-);
+export const makeSelectSettingsEditActivity = () => state => state.getIn(['settingsEditActivity', 'activity'])
 
-export default makeSelectSettingsEditActivity;
+export const makeSelectSettingsEditLoading = () => state => state.getIn(['settingsEditActivity', 'loading'])
