@@ -37,7 +37,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, initialValues } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <Field component={InputForm} name='name' type='text' label='Name' placeholder='ex: Check emails' /><br />
@@ -87,7 +87,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
           value: false,
         },]} label='This task cannot be skipped when full-focus mode is ON' />
         <ButtonContainer>
-          <Button>Create activity</Button>
+          <Button>{ initialValues && initialValues.get('id') ? 'Update activity' : 'Create activity' }</Button>
         </ButtonContainer>
       </form>
     );
