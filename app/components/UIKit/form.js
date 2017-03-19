@@ -165,6 +165,16 @@ export const Button = styled.button`
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   border: 1pt solid #979797;
+  cursor: pointer;
+`;
+
+export const ButtonCancel = styled.button`
+  background-color: #CEA7A7;
+  padding: 10pt;
+  font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  border: 1pt solid #979797;
+  cursor: pointer;
 `;
 
 const ColorDiv = styled.div`

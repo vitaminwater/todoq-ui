@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
@@ -22,17 +22,24 @@ class SettingsActivityList extends React.PureComponent { // eslint-disable-line 
         {
           activities.map((activity) => {
             return (
-              <SettingsListItem key={activity.get('id')} activity={activity} />
+              <SettingsListItem 
+                key={activity.get('id')}
+                activity={activity}
+                onDelete={this._handleDelete(activity)}/>
             );
           })
         }
       </List>
     );
   }
+
+  _handleDelete = activity => () => {
+    this.props.onDelete(activity);
+  }
 }
 
 SettingsActivityList.propTypes = {
-
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default SettingsActivityList;

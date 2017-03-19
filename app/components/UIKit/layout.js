@@ -41,9 +41,11 @@ export const LayoutParent = styled.div`
   background-color: white;
   align-items: stretch;
   justify-content: space-around;
+  height: 100%;
 `;
 
 export const LayoutChild = styled.div`
+  position: relative;
   flex: ${props => props.left ? 0.33 : 0.64};
 	z-index: ${props => props.active ? 10 : 0};
   background-color: white;

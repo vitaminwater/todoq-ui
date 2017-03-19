@@ -4,13 +4,13 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import { Button } from 'components/UIKit/form';
+import { Button, ButtonCancel} from 'components/UIKit/form';
 
 const OverlayDiv = styled.div`
   position: absolute;
@@ -35,11 +35,6 @@ const OverlayDiv = styled.div`
 
 class DeleteActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  _handleOK = (e) => {
-    e.preventDefault();
-    console.log('pouet');
-  }
-
   render() {
     const { activity } = this.props;
     return (
@@ -50,6 +45,9 @@ class DeleteActivity extends React.PureComponent { // eslint-disable-line react/
           <p>
             This is NOT revertible.
           </p>
+          <ButtonCancel onClick={this._handleCancel}>
+            Cancel
+          </ButtonCancel>&nbsp;&nbsp;
           <Button onClick={this._handleOK}>
             Delete activity
           </Button>
@@ -57,10 +55,21 @@ class DeleteActivity extends React.PureComponent { // eslint-disable-line react/
       </OverlayDiv>
     );
   }
+
+  _handleOK = (e) => {
+    e.preventDefault();
+    this.props.onOk();
+  }
+
+  _handleCancel = (e) => {
+    e.preventDefault();
+    this.props.onCancel();
+  }
 }
 
 DeleteActivity.propTypes = {
-
+  onOk: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default DeleteActivity;

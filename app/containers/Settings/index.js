@@ -24,7 +24,7 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
   constructor() {
     super();
 
-    this.state = {selectedActivityId: 0};
+    this.state = {selectedActivityId: 0, deleteActivity: null};
   }
 
   componentWillMount() {
@@ -41,15 +41,35 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
         </Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
-            <ActivityList activities={activities} />
+            <ActivityList 
+              activities={activities}
+              onDelete={this._handleDelete}/>
           </LayoutChild>
           <LayoutChild>
             {this.props.children}
           </LayoutChild>
         </LayoutParent>
-        {activities && activities.size && <DeleteActivity activity={activities.get(0)} />}
+        {this.state.deleteActivity && (
+          <DeleteActivity
+            activity={this.state.deleteActivity}
+            onOk={this._handleOkDelete}
+            onCancel={this._handleCancelDelete}/>
+        )}
       </FullScreen>
     );
+  }
+
+  _handleDelete = (activity) => {
+    console.log('_handleDelete');
+    this.setState({deleteActivity: activity});
+  }
+
+  _handleOkDelete = () => {
+    this.setState({deleteActivity: null});
+  }
+
+  _handleCancelDelete = () => {
+    this.setState({deleteActivity: null});
   }
 }
 

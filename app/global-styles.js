@@ -29,5 +29,7 @@ injectGlobal`
     border-bottom: 1px dashed #E0E0E0;
   }
 
-}
+  [data-reactroot] {
+    position: absolute; width: 100% !important; height: 100% !important;
+  }
 `;

@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
@@ -19,6 +19,7 @@ const ItemDiv = styled.div`
     margin-right: 10pt;
     color: black;
     text-decoration: none;
+    cursor: pointer;
   }
 `;
 
@@ -51,14 +52,20 @@ class SettingsListItem extends React.PureComponent { // eslint-disable-line reac
         <Clear />
         <Link to={`/settings/activity/${activity.get('id')}/edit`}>Edit</Link>
         <Link to={`/settings/activity/${activity.get('id')}/stats`}>Stats</Link>
-        <Link to={`/settings/activity/${activity.get('id')}/delete`}>Delete</Link>
+        <Link onClick={this._handleDelete}>Delete</Link>
       </ItemDiv>
     );
+  }
+
+  _handleDelete = (e) => {
+    e.preventDefault();
+    const { activity } = this.props;
+    this.props.onDelete(activity);
   }
 }
 
 SettingsListItem.propTypes = {
-
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default SettingsListItem;
