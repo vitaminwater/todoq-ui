@@ -15,7 +15,6 @@ import { updatingActivity, updatedActivity, creatingActivity, createdActivity } 
 
 function* updateActivity(action) {
   const url = `http://localhost:4000/activities/${action.activity.get('id')}`;
-  console.log('updateActivity');
   try {
     yield put(updatingActivity(action.activity));
     const activity = yield call(putMultipart, url, { activity: action.activity.toJS() });

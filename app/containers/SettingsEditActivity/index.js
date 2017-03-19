@@ -18,6 +18,10 @@ import ActivityForm from 'components/ActivityForm';
 export class SettingsEditActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   _handleSubmit = (activity) => {
+    const imageFieldType = Object.prototype.toString.call(activity.get('image'));
+    if (imageFieldType !== '[object File]') {
+      activity = activity.delete('image');
+    }
     this.props.updateActivity(activity);
   }
 
