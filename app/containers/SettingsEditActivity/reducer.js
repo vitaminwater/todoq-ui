@@ -13,6 +13,7 @@ import {
 import {
   UPDATING_ACTIVITY,
   UPDATED_ACTIVITY,
+  UPDATE_ACTIVITY_ERROR,
 } from 'common/constants';
 
 const initialState = fromJS({});
@@ -29,6 +30,9 @@ function settingsEditActivityReducer(state = initialState, action) {
     case UPDATED_ACTIVITY:
       return state.set('activity', action.activity)
                   .set('loading', false);
+    case UPDATE_ACTIVITY_ERROR:
+      return state.set('loading', false)
+             .set('error': action.error);
     default:
       return state;
   }

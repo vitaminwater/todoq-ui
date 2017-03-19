@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { createdSelector, loadingSelector } from './selectors';
+import { createdSelector, loadingSelector, errorSelector } from './selectors';
 import messages from './messages';
 
 import { createActivity } from 'common/actions';
@@ -28,10 +28,12 @@ export class SettingsNewActivity extends React.PureComponent { // eslint-disable
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, error } = this.props;
     return (
       <div>
-        <ActivityForm onSubmit={this._handleSubmit} />
+        <ActivityForm
+          onSubmit={this._handleSubmit}
+          error={error} />
         {loading && <Loading />}
       </div>
     );
@@ -45,6 +47,7 @@ SettingsNewActivity.propTypes = {
 const mapStateToProps = createStructuredSelector({
   created: createdSelector(),
   loading: loadingSelector(),
+  error: errorSelector(),
 });
 
 function mapDispatchToProps(dispatch) {

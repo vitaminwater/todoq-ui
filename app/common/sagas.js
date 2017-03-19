@@ -11,7 +11,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { UPDATE_ACTIVITY, DELETE_ACTIVITY, CREATE_ACTIVITY } from './constants';
 
-import { updatingActivity, updatedActivity, creatingActivity, createdActivity, deletingActivity, deletedActivity } from './actions';
+import { updatingActivity, updatedActivity, updateActivityError, creatingActivity, createdActivity, createActivityError, deletingActivity, deletedActivity, deleteActivityError } from './actions';
 
 function* updateActivity(action) {
   const url = `http://localhost:4000/activities/${action.activity.get('id')}`;
@@ -20,6 +20,7 @@ function* updateActivity(action) {
     const activity = yield call(putMultipart, url, { activity: action.activity.toJS() });
     yield put(updatedActivity(fromJS(activity.data)));
   } catch (err) {
+    yield put(updateActivityError(action.activity, err));
     console.log(err);
   }
 }
@@ -31,6 +32,7 @@ function* deleteActivity(action) {
     const activity = yield call(deleteRequest, url);
     yield put(deletedActivity(action.activity));
   } catch (err) {
+    yield put(deleteActivityError(action.activity, err));
     console.log(err);
   }
 }
@@ -43,6 +45,7 @@ function* createActivity(action) {
     const activity = yield call(postMultipart, url, { activity: action.activity.toJS() });
     yield put(createdActivity(fromJS(activity.data)));
   } catch (err) {
+    yield put(createActivityError(action.activity, err));
     console.log(err);
   }
 }

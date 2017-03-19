@@ -9,7 +9,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectSettingsEditActivity, makeSelectSettingsEditLoading } from './selectors';
+import { activitySelector, loadingSelector, errorSelector } from './selectors';
 import messages from './messages';
 
 import { loadActivity } from './actions';
@@ -42,10 +42,14 @@ export class SettingsEditActivity extends React.PureComponent { // eslint-disabl
   }
 
   render() {
-    const { activity, loading } = this.props;
+    const { activity, loading, error } = this.props;
     return (
       <div style={{position: 'relative'}}>
-        <ActivityForm onSubmit={this._handleSubmit} initialValues={activity} activityId={activity && activity.get('id')} />
+        <ActivityForm
+          onSubmit={this._handleSubmit}
+          initialValues={activity}
+          activityId={activity && activity.get('id')}
+          error={error} />
         { loading && <Loading />}
       </div>
     );
@@ -56,8 +60,9 @@ SettingsEditActivity.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  activity: makeSelectSettingsEditActivity(),
-  loading: makeSelectSettingsEditLoading(),
+  activity: activitySelector(),
+  loading: loadingSelector(),
+  error: errorSelector(),
 });
 
 function mapDispatchToProps(dispatch) {

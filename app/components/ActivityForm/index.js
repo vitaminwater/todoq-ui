@@ -28,6 +28,10 @@ const ButtonContainer = styled.div`
   text-align: right;
 `;
 
+const Error = styled.span`
+  color: red;
+`;
+
 class ActivityForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   
   componentWillReceiveProps(nextProps) {
@@ -37,7 +41,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { handleSubmit, initialValues } = this.props;
+    const { handleSubmit, initialValues, error } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <Field component={InputForm} name='name' type='text' label='Name' placeholder='ex: Check emails' /><br />
@@ -86,6 +90,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
           label: 'No',
           value: false,
         },]} label='This task cannot be skipped when full-focus mode is ON' />
+        {error && <Error>{error}</Error>}
         <ButtonContainer>
           <Button>{ initialValues && initialValues.get('id') ? 'Update activity' : 'Create activity' }</Button>
         </ButtonContainer>

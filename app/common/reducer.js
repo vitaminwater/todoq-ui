@@ -30,6 +30,13 @@ export const updatedActivity = (state, activity) => {
     .set('activities', activities);
 }
 
+export const updateActivityError = (state, activity) => {
+  const activities = state
+    .get('activities')
+    .update(activityIndex(state, activity), (a) => a.set('updating', false));
+  return state.set('activities', activities);
+}
+
 export const deletingActivity = (state, activity) => {
   const activities = state
     .get('activities')
@@ -45,3 +52,11 @@ export const deletedActivity = (state, activity) => {
     .set('activities', activities)
     .set('deleting', false);
 }
+
+export const deleteActivityError = (state, activity) => {
+  const activities = state
+    .get('activities')
+    .delete(activityIndex(state, activity), (a) => a.set('deleting', false));
+  return state.set('activities', activities);
+}
+
