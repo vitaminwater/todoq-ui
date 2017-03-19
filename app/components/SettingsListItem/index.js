@@ -13,7 +13,7 @@ import messages from './messages';
 
 const ItemDiv = styled.div`
   border-bottom: 1pt dashed #E0E0E0;
-  padding: 20pt;
+  padding: 10pt;
 
   & a {
     margin-right: 10pt;
@@ -37,7 +37,7 @@ const SubText = styled.span`
 `;
 
 const Clear = styled.div`
-  float: clear;
+  clear: both;
 `;
 
 class SettingsListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -48,7 +48,7 @@ class SettingsListItem extends React.PureComponent { // eslint-disable-line reac
         <Image src={`http://localhost:8000${activity.get('image')}`} />
         {activity.get('name')}<br/ >
         <SubText>Never done yet</SubText>
-        <Clear /><br />
+        <Clear />
         <Link to={`/settings/activity/${activity.get('id')}/edit`}>Edit</Link>
         <Link to={`/settings/activity/${activity.get('id')}/stats`}>Stats</Link>
         <Link to={`/settings/activity/${activity.get('id')}/delete`}>Delete</Link>
