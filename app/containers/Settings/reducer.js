@@ -16,11 +16,16 @@ import {
 
   UPDATING_ACTIVITY,
   UPDATED_ACTIVITY,
+  
+  DELETING_ACTIVITY,
+  DELETED_ACTIVITY,
 } from 'common/constants';
 
 import {
   updatingActivity,
   updatedActivity,
+  deletingActivity,
+  deletedActivity,
 } from 'common/reducer';
 
 const initialState = fromJS({
@@ -50,6 +55,12 @@ function settingsReducer(state = initialState, action) {
       return updatingActivity(state, action.activity);
     case UPDATED_ACTIVITY:
       return updatedActivity(state, action.activity);
+
+    case DELETING_ACTIVITY:
+      return deletingActivity(state, action.activity);
+    case DELETED_ACTIVITY:
+      return deletedActivity(state, action.activity);
+
     default:
       return state;
   }

@@ -76,3 +76,9 @@ export function putMultipart(url, data) {
     body: formData,
   });
 }
+
+export function deleteRequest(url) {
+  return request(url, {
+    method: 'DELETE',
+  }); 
+}

@@ -27,7 +27,21 @@ export const updatedActivity = (state, activity) => {
     .get('activities')
     .update(activityIndex(state, activity), (a) => activity);
   return state
+    .set('activities', activities);
+}
+
+export const deletingActivity = (state, activity) => {
+  const activities = state
+    .get('activities')
+    .delete(activityIndex(state, activity), (a) => a.set('deleting', true));
+  return state.set('activities', activities);
+}
+
+export const deletedActivity = (state, activity) => {
+  const activities = state
+    .get('activities')
+    .delete(activityIndex(state, activity));
+  return state
     .set('activities', activities)
-    .set('updating', false)
-    .set('lastUpdate', new Date());
+    .set('deleting', false);
 }

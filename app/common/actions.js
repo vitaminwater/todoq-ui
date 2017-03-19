@@ -12,6 +12,10 @@ import {
   CREATE_ACTIVITY,
   CREATING_ACTIVITY,
   CREATED_ACTIVITY,
+
+  DELETE_ACTIVITY,
+  DELETING_ACTIVITY,
+  DELETED_ACTIVITY,
 } from './constants';
 
 export function createActivity(activity) {
@@ -52,6 +56,27 @@ export function updatingActivity(activity) {
 export function updatedActivity(activity) {
   return {
     type: UPDATED_ACTIVITY,
+    activity,
+  }
+}
+
+export function deleteActivity(activity) {
+  return {
+    type: DELETE_ACTIVITY,
+    activity,
+  }
+}
+
+export function deletingActivity(activity) {
+  return {
+    type: DELETING_ACTIVITY,
+    activity,
+  }
+}
+
+export function deletedActivity(activity) {
+  return {
+    type: DELETED_ACTIVITY,
     activity,
   }
 }

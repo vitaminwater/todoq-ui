@@ -5,13 +5,13 @@
  */
 
 import { fromJS } from 'immutable';
-import { postMultipart, putMultipart } from 'utils/request';
+import { postMultipart, putMultipart, deleteRequest } from 'utils/request';
 import { takeEvery, take, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import { UPDATE_ACTIVITY, CREATE_ACTIVITY } from './constants';
+import { UPDATE_ACTIVITY, DELETE_ACTIVITY, CREATE_ACTIVITY } from './constants';
 
-import { updatingActivity, updatedActivity, creatingActivity, createdActivity } from './actions';
+import { updatingActivity, updatedActivity, creatingActivity, createdActivity, deletingActivity, deletedActivity } from './actions';
 
 function* updateActivity(action) {
   const url = `http://localhost:4000/activities/${action.activity.get('id')}`;
@@ -24,7 +24,18 @@ function* updateActivity(action) {
   }
 }
 
-export function* createActivity(action) {
+function* deleteActivity(action) {
+  const url = `http://localhost:4000/activities/${action.activity.get('id')}`;
+  try {
+    yield put(deletingActivity(action.activity));
+    const activity = yield call(deleteRequest, url);
+    yield put(deletedActivity(action.activity));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function* createActivity(action) {
   const url = 'http://localhost:4000/activities';
 
   try {
@@ -38,6 +49,7 @@ export function* createActivity(action) {
 
 function* commonSaga() {
   const updateActivityWatcher = yield takeEvery(UPDATE_ACTIVITY, updateActivity);
+  const deleteActivityWatcher = yield takeEvery(DELETE_ACTIVITY, deleteActivity);
   const createActivityWatcher = yield takeEvery(CREATE_ACTIVITY, createActivity);
 }
 

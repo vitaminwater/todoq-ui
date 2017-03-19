@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectActivities } from './selectors';
 import { loadActivities } from './actions';
+import { deleteActivity } from 'common/actions';
 import messages from './messages';
 import { Link } from 'react-router';
 
@@ -60,11 +61,11 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
   }
 
   _handleDelete = (activity) => {
-    console.log('_handleDelete');
     this.setState({deleteActivity: activity});
   }
 
   _handleOkDelete = () => {
+    this.props.deleteActivity(this.state.deleteActivity);
     this.setState({deleteActivity: null});
   }
 
@@ -75,6 +76,7 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
 
 Settings.propTypes = {
   doLoadActivities: PropTypes.func.isRequired,
+  deleteActivity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -84,6 +86,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     doLoadActivities: () => dispatch(loadActivities()),
+    deleteActivity: (activity) => dispatch(deleteActivity(activity)),
   };
 }
 
