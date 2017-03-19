@@ -222,13 +222,25 @@ const IconLabel = styled.label`
 
 export class IconUpload extends React.PureComponent {
 
+  constructor() {
+    super();
+
+    this.state = {};
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (typeof nextProps.input.value === 'string') {
+      this.setState({url: `http://localhost:8000${nextProps.input.value}`});
+    }
+  }
+
   render() {
     const { onChange, value } = this.props.input;
     return (
       <RelativeDiv>
         <HiddenFileInput type='file' name='upload' onChange={(e) => onChange(e.target.files[0])} />
         <IconLabel>
-          <IconImg src={value} />  
+          <IconImg src={this.state.url} />  
           Change<br />Icon
         </IconLabel>
       </RelativeDiv>
