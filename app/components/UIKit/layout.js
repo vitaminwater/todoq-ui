@@ -32,6 +32,7 @@ export const FullScreen = styled.div`
 
 export const Header = styled.div`
 	height: 50pt;
+  border-bottom: 1pt dashed #E0E0E0;
 `;
 
 export const LayoutParent = styled.div`

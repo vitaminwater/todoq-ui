@@ -10,5 +10,5 @@ export const List = styled.div`
 
 export const Item = styled.div`
   background-color: white;
-  border-bottom: thick dotted #ff0000;
+  border-bottom: 1pt dashed #E0E0E0;
 `;
