@@ -16,9 +16,13 @@ import messages from './messages';
 import { Link } from 'react-router';
 
 import { Header, FullScreen, LayoutParent, LayoutChild } from 'components/UIKit/layout';
+import { MenuIcon } from 'components/UIKit/menu';
 import ActivityList from 'components/SettingsActivityList';
 
 import DeleteActivity from 'components/DeleteActivity';
+
+import logo from 'common/img/robot.png';
+import add from 'common/img/add.png';
 
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -37,8 +41,8 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
     return (
       <FullScreen>
         <Header>
-          <Link to="/settings/activity">New activity</Link>&nbsp;
-          <Link to="/">Home</Link>
+          <Link to="/"><MenuIcon src={logo} /></Link>
+          <Link to="/settings/activity"><MenuIcon src={add} /></Link>&nbsp;
         </Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
