@@ -8,11 +8,12 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectSettingsNewActivity from './selectors';
+import { createdSelector, loadingSelector } from './selectors';
 import messages from './messages';
 
 import { createActivity } from 'common/actions';
 import ActivityForm from 'components/ActivityForm';
+import Loading from 'components/Loading';
 
 export class SettingsNewActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -20,10 +21,18 @@ export class SettingsNewActivity extends React.PureComponent { // eslint-disable
     this.props.createActivity(activity);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.created != nextProps.created) {
+      this.props.router.push(`/settings/activity/${nextProps.created}/edit`);
+    }
+  }
+
   render() {
+    const { loading } = this.props;
     return (
       <div>
         <ActivityForm onSubmit={this._handleSubmit} />
+        {loading && <Loading />}
       </div>
     );
   }
@@ -34,7 +43,8 @@ SettingsNewActivity.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  SettingsNewActivity: makeSelectSettingsNewActivity(),
+  created: createdSelector(),
+  loading: loadingSelector(),
 });
 
 function mapDispatchToProps(dispatch) {
