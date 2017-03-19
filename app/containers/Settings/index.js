@@ -17,6 +17,8 @@ import { Link } from 'react-router';
 import { Header, FullScreen, LayoutParent, LayoutChild } from 'components/UIKit/layout';
 import ActivityList from 'components/SettingsActivityList';
 
+import DeleteActivity from 'components/DeleteActivity';
+
 export class Settings extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor() {
@@ -45,6 +47,7 @@ export class Settings extends React.PureComponent { // eslint-disable-line react
             {this.props.children}
           </LayoutChild>
         </LayoutParent>
+        {activities && activities.size && <DeleteActivity activity={activities.get(0)} />}
       </FullScreen>
     );
   }
