@@ -29,6 +29,7 @@ const OverlayDiv = styled.div`
     background-color: white;
     border: 1px solid #a0a0a0;
     padding: 10pt;
+    max-width: 100%;
   }
 `;
 
@@ -44,7 +45,8 @@ class DeleteActivity extends React.PureComponent { // eslint-disable-line react/
     return (
       <OverlayDiv>
         <div>
-          <h3>Delete Activity { activity.get('name') } ?</h3>
+          <b>Delete Activity  ?</b><br /><br />
+          <i>{ activity.get('name') }</i>
           <p>
             This is NOT revertible.
           </p>
