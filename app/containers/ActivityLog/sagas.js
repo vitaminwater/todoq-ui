@@ -1,11 +1,40 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { fromJS } from 'immutable';
+import { request, } from 'utils/request';
+import { take, takeLatest, call, put, select } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
-// Individual exports for testing
-export function* defaultSaga() {
-  // See example in containers/HomePage/sagas.js
+import {
+  LOADING_MORE_LOGS,
+  LOAD_MORE_LOGS,
+  NO_MORE_LOGS,
+} from './constants';
+
+import { loadingMoreLogs, loadedMoreLogs } from './actions';
+
+const selectCurrentPage = state => state.get('currentPage');
+
+function* loadMoreLogs(action) {
+  const url = `http://localhost:4000/activities/${action.activityId}/logs`;
+  try {
+    yield put(loadingMoreLogs(action.activityId));
+    const logs = yield call(request, url);
+    if (logs) {
+      yield put(loadedMoreLogs(fromJS(logs.data)));
+    } else {
+      yield put(noMoreLogs(fromJS(logs.data)));
+    }
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-// All sagas to be loaded
+export function* logSaga() {
+  const loadMoreLogsWatcher = yield takeLatest(LOAD_MORE_LOGS, loadMoreLogs);
+
+  yield take(LOCATION_CHANGE);
+  yield cancel(loadMoreLogsWatcher);
+}
+
 export default [
-  defaultSaga,
+  logSaga,
 ];

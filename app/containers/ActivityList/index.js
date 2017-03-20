@@ -42,7 +42,9 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
         </Header>
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
-            <Timeline activities={activities} />
+            <Timeline
+              activities={activities}
+              onOpen={this._handleOpen} />
           </LayoutChild>
           <LayoutChild>
             {this.props.children || (<NoActivity />)}
@@ -50,6 +52,10 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
         </LayoutParent>
       </FullScreen>
     );
+  }
+
+  _handleOpen = (activity) => {
+    this.props.router.push(`/activity/${activity.get('id')}`);
   }
 }
 

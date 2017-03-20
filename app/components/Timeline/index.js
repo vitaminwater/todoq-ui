@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
@@ -19,7 +19,7 @@ class Timeline extends React.PureComponent { // eslint-disable-line react/prefer
         {
           activities.map((activity) => {
             return (
-              <Item key={activity.get('id')}>
+              <Item onClick={this._handleOpen(activity)} key={activity.get('id')}>
                 {activity.get('name')}
               </Item>
             );
@@ -28,10 +28,15 @@ class Timeline extends React.PureComponent { // eslint-disable-line react/prefer
       </List>
     );
   }
+
+  _handleOpen = activity => (e) => {
+    e.preventDefault();
+    this.props.onOpen(activity);
+  }
 }
 
 Timeline.propTypes = {
-
+  onOpen: PropTypes.func.isRequired,
 };
 
 export default Timeline;
