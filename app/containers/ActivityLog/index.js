@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectActivityLog from './selectors';
 import messages from './messages';
 
-import { loadMoreLogs, createLog } from './actions';
+import { loadMoreLogs, createLog, reset } from './actions';
 import { logsSelector } from './selectors';
 
 const Container = styled.div`
@@ -71,9 +71,13 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     this.state = {text: ''};
   }
 
-  componentWillMount() {
+  componentWillReceiveProps(nextProps) {
     const { activityId } = this.props.params;
-    this.props.loadMoreLogs(activityId);
+    const { activityId: nextActivityId } = nextProps.params;
+    if (activityId != nextActivityId) {
+      this.props.reset();
+      this.props.loadMoreLogs(nextActivityId);
+    }
   }
 
   render() {
@@ -129,6 +133,7 @@ function mapDispatchToProps(dispatch) {
   return {
     loadMoreLogs: (activityId) => dispatch(loadMoreLogs(activityId)),
     createLog: (activityId, log) => dispatch(createLog(activityId, log)),
+    reset: () => dispatch(reset()),
   };
 }
 

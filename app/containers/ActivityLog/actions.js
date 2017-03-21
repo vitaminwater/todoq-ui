@@ -5,6 +5,7 @@
  */
 
 import {
+  RESET,
   LOAD_MORE_LOGS,
   LOADING_MORE_LOGS,
   LOADED_MORE_LOGS,
@@ -14,6 +15,12 @@ import {
   CREATING_LOG,
   CREATED_LOG,
 } from './constants';
+
+export function reset() {
+  return {
+    type: RESET,
+  };
+}
 
 export function loadMoreLogs(activityId) {
   return {

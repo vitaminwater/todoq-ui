@@ -5,7 +5,10 @@
  */
 
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
+
 import {
+  RESET,
   LOADING_MORE_LOGS,
   LOADED_MORE_LOGS,
   NO_MORE_LOGS,
@@ -21,6 +24,8 @@ const initialState = fromJS({
 
 function activityLogReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET:
+      return initialState;
     case LOADING_MORE_LOGS:
       return state.set('loading', true);
     case LOADED_MORE_LOGS: {

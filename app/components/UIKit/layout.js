@@ -47,7 +47,7 @@ export const LayoutParent = styled.div`
 
 export const LayoutChild = styled.div`
   position: relative;
-  flex: ${props => props.left ? 0.33 : 0.64};
+  ${props => props.left ? 'width: 300pt;' : 'flex: 1'}
   z-index: ${props => props.active ? 10 : 0};
   background-color: white;
   margin-top: 10pt;
