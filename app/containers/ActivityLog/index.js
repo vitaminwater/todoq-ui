@@ -96,7 +96,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
   }
 
   _handleKeyPress = (e) => {
-    if (e.charCode == 13 && e.shiftKey) {
+    if (e.charCode == 13 && e.shiftKey == false) {
       e.preventDefault();
       console.log(`sending ${this.state.msg}`);
       this.setState({msg: ''});
