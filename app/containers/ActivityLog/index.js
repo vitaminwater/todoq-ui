@@ -29,6 +29,7 @@ const Container = styled.div`
 
 const LogsContainer = styled.div`
   flex: 1;
+  display: flex;
   flex-direction: column-reverse;
 `;
 

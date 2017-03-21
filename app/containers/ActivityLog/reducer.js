@@ -25,7 +25,7 @@ function activityLogReducer(state = initialState, action) {
       return state.set('loading', true);
     case LOADED_MORE_LOGS: {
       const logs = state.get('logs')
-        .merge(action.logs);
+        .merge(action.logs.reverse());
       return state.set('logs', logs)
         .set('currentPage', action.currentPage)
         .set('loading', false);
@@ -36,7 +36,7 @@ function activityLogReducer(state = initialState, action) {
       return state.set('creating');
     case CREATED_LOG: {
       const logs = state.get('logs')
-        .push(action.log);
+        .insert(0, action.log);
       return state.set('logs', logs)
         .set('creating', false);
     }
