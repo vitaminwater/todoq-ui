@@ -71,12 +71,16 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     this.state = {text: ''};
   }
 
+  componentWillMount() {
+    const { activityId } = this.props.params;
+    this._handleLoadLogs(activityId);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { activityId } = this.props.params;
     const { activityId: nextActivityId } = nextProps.params;
     if (activityId != nextActivityId) {
-      this.props.reset();
-      this.props.loadMoreLogs(nextActivityId);
+      this._handleLoadLogs(nextActivityId);
     }
   }
 
@@ -99,6 +103,11 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
         </InputContainer>
       </Container>
     );
+  }
+
+  _handleLoadLogs(activityId) {
+    this.props.reset();
+    this.props.loadMoreLogs(activityId);
   }
 
   _handleKeyPress = (e) => {
