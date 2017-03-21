@@ -34,7 +34,7 @@ const LogsContainer = styled.div`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 10pt;
+  padding-bottom: 10pt;
   justify-content: stretch;
   align-items: stretch;
   align-content: stretch;
@@ -43,7 +43,7 @@ const InputContainer = styled.div`
 export const TextArea = styled.textarea`
   width: 100%;
   border: 2px dashed #E0E0E0;
-  padding: 10px;
+  padding: 5px;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   margin-right: 5pt;
@@ -53,7 +53,7 @@ export const TextArea = styled.textarea`
 
 export const Button = styled.button`
   background-color: #A7CEA7;
-  padding: 10pt;
+  padding: 5pt;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   border: 1pt solid #979797;
@@ -61,6 +61,12 @@ export const Button = styled.button`
 `;
 
 export class ActivityLog extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  constructor() {
+    super();
+
+    this.state = {msg: ''};
+  }
 
   componentWillMount() {
     const { activityId } = this.props.params;
@@ -82,11 +88,19 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
           }
         </LogsContainer>
         <InputContainer>
-          <TextArea />
+          <TextArea value={this.state.msg} onChange={({ target: { value: msg } }) => this.setState({msg})} onKeyPress={this._handleKeyPress} />
           <Button>SEND</Button>
         </InputContainer>
       </Container>
     );
+  }
+
+  _handleKeyPress = (e) => {
+    if (e.charCode == 13 && e.shiftKey) {
+      e.preventDefault();
+      console.log(`sending ${this.state.msg}`);
+      this.setState({msg: ''});
+    }
   }
 }
 

@@ -31,7 +31,7 @@ export const FullScreen = styled.div`
 `;
 
 export const Header = styled.div`
-	height: 50pt;
+  height: 50pt;
   border-bottom: 1pt dashed #E0E0E0;
 `;
 
@@ -41,18 +41,18 @@ export const LayoutParent = styled.div`
   flex-direction: row;
   background-color: white;
   align-items: stretch;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 100%;
 `;
 
 export const LayoutChild = styled.div`
   position: relative;
   flex: ${props => props.left ? 0.33 : 0.64};
-	z-index: ${props => props.active ? 10 : 0};
+  z-index: ${props => props.active ? 10 : 0};
   background-color: white;
   margin-top: 10pt;
-	${media.desktop`
-	  position: absolute;
-		width: 100%; height: 100%;
-	`}
+  ${media.desktop`
+    position: absolute;
+    width: 100%; height: 100%;
+  `}
 `;
