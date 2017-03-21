@@ -9,6 +9,10 @@ import {
   LOADING_MORE_LOGS,
   LOADED_MORE_LOGS,
   NO_MORE_LOGS,
+
+  CREATE_LOG,
+  CREATING_LOG,
+  CREATED_LOG,
 } from './constants';
 
 export function loadMoreLogs(activityId) {
@@ -39,4 +43,28 @@ export function noMoreLogs(activityId) {
     type: NO_MORE_LOGS,
     activityId,
   };
+}
+
+export function createLog(activityId, log) {
+  return {
+    type: CREATE_LOG,
+    activityId,
+    log
+  };
+}
+
+export function creatingLog(activityId, log) {
+  return {
+    type: CREATING_LOG,
+    activityId,
+    log
+  }
+}
+
+export function createdLog(activityId, log) {
+  return {
+    type: CREATED_LOG,
+    activityId,
+    log
+  }
 }

@@ -9,6 +9,9 @@ import {
   LOADING_MORE_LOGS,
   LOADED_MORE_LOGS,
   NO_MORE_LOGS,
+
+  CREATING_LOG,
+  CREATED_LOG,
 } from './constants';
 
 const initialState = fromJS({
@@ -20,14 +23,23 @@ function activityLogReducer(state = initialState, action) {
   switch (action.type) {
     case LOADING_MORE_LOGS:
       return state.set('loading', true);
-    case LOADED_MORE_LOGS:
+    case LOADED_MORE_LOGS: {
       const logs = state.get('logs')
-                        .merge(action.logs);
+        .merge(action.logs);
       return state.set('logs', logs)
-                  .set('currentPage', action.currentPage)
-                  .set('loading', false);
+        .set('currentPage', action.currentPage)
+        .set('loading', false);
+    }
     case NO_MORE_LOGS:
       return state.set('noMore', true);
+    case CREATING_LOG:
+      return state.set('creating');
+    case CREATED_LOG: {
+      const logs = state.get('logs')
+        .push(action.log);
+      return state.set('logs', logs)
+        .set('creating', false);
+    }
     default:
       return state;
   }

@@ -5,6 +5,7 @@
  */
 
 import styled from 'styled-components';
+import { fromJS } from 'immutable';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -12,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectActivityLog from './selectors';
 import messages from './messages';
 
-import { loadMoreLogs } from './actions';
+import { loadMoreLogs, createLog } from './actions';
 import { logsSelector } from './selectors';
 
 const Container = styled.div`
@@ -47,13 +48,14 @@ export const TextArea = styled.textarea`
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   margin-right: 5pt;
+  resize: none;
 
   &:focus { outline:none; }
 `;
 
 export const Button = styled.button`
   background-color: #A7CEA7;
-  padding: 5pt;
+  padding: 5pt 15pt;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   border: 1pt solid #979797;
@@ -65,7 +67,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
   constructor() {
     super();
 
-    this.state = {msg: ''};
+    this.state = {text: ''};
   }
 
   componentWillMount() {
@@ -80,16 +82,15 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
         <LogsContainer>
           {
             logs.map(log => (
-              <div>
-                lol
-                {log.get('content')}
+              <div key={log.get('id')}>
+                {log.get('text')}
               </div>
             ))
           }
         </LogsContainer>
         <InputContainer>
-          <TextArea value={this.state.msg} onChange={({ target: { value: msg } }) => this.setState({msg})} onKeyPress={this._handleKeyPress} />
-          <Button>SEND</Button>
+          <TextArea value={this.state.text} onChange={({ target: { value: text } }) => this.setState({text})} onKeyPress={this._handleKeyPress} />
+          <Button onClick={this._handleSend}>SEND</Button>
         </InputContainer>
       </Container>
     );
@@ -97,10 +98,21 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
 
   _handleKeyPress = (e) => {
     if (e.charCode == 13 && e.shiftKey == false) {
-      e.preventDefault();
-      console.log(`sending ${this.state.msg}`);
-      this.setState({msg: ''});
+      this._handleSend(e);
     }
+  }
+
+  _handleSend = (e) => {
+    e.preventDefault();
+    const { text } = this.state;
+    const { activityId } = this.props.params;
+    const log = fromJS({
+      type: 'NOTE',
+      text,
+      content: {},
+    });
+    this.props.createLog(activityId, log);
+    this.setState({text: ''});
   }
 }
 
@@ -115,6 +127,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadMoreLogs: (activityId) => dispatch(loadMoreLogs(activityId)),
+    createLog: (activityId, log) => dispatch(createLog(activityId, log)),
   };
 }
 
