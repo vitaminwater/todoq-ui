@@ -27,7 +27,7 @@ const Container = styled.div`
   position: relative;
   padding: 40pt 5pt 40pt 60pt;
   background-color: ${props => props.color};
-  border: 1px solid #afafaf;
+  border: 1pt solid ${props => props.selected ? '#505050' : '#afafaf'};
   border-right: none;
   margin-left: 30pt;
 `;
@@ -49,13 +49,13 @@ const Alt = styled.span`
 
 class Timeline extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { activities } = this.props;
+    const { activities, selectedActivity } = this.props;
     return (
       <List>
         {
           activities.map((activity) => (
               <Item onClick={this._handleOpen(activity)} key={activity.get('id')}>
-                <Container color={activity.get('color')}>
+                <Container selected={selectedActivity && activity.get('id') == selectedActivity.get('id')} color={activity.get('color')}>
                   <Image src={`http://localhost:8000${activity.get('image')}`} />
                   {activity.get('name')}<br />
                   {activity.get('why').split('\n').map((item, key) => (

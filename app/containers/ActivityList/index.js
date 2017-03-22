@@ -26,7 +26,7 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
   constructor() {
     super();
 
-    this.state = {selectedActivityId: 0};
+    this.state = {selectedActivity: null};
   }
 
   componentWillMount() {
@@ -43,6 +43,7 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
         <LayoutParent>
           <LayoutChild left active={!this.state.selectedActivityId}>
             <Timeline
+              selectedActivity={this.state.selectedActivity}
               activities={activities}
               onOpen={this._handleOpen} />
           </LayoutChild>
@@ -55,6 +56,7 @@ export class ActivityList extends React.PureComponent { // eslint-disable-line r
   }
 
   _handleOpen = (activity) => {
+    this.setState({selectedActivity: activity});
     this.props.router.push(`/activity/${activity.get('id')}`);
   }
 }
