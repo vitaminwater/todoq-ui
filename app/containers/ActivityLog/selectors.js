@@ -19,6 +19,12 @@ const logsSelector = () => createSelector(
   (state) => state.get('logs'),
 );
 
+const loadingSelector = () => createSelector(
+  domain(),
+  (state) => state.get('loading'),
+);
+
 export {
   logsSelector,
+  loadingSelector,
 };

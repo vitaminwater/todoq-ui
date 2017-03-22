@@ -5,6 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -14,6 +15,14 @@ import messages from './messages';
 import { createActivity } from 'common/actions';
 import ActivityForm from 'components/ActivityForm';
 import Loading from 'components/Loading';
+
+const DEFAULT_VALUES = fromJS({
+  type: 'frequency',
+  frequency: 'week',
+  invest: 120,
+  skippable: true,
+  avgDuration: 60
+});
 
 export class SettingsNewActivity extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -32,6 +41,7 @@ export class SettingsNewActivity extends React.PureComponent { // eslint-disable
     return (
       <div>
         <ActivityForm
+          initialValues={DEFAULT_VALUES}
           onSubmit={this._handleSubmit}
           error={error} />
         {loading && <Loading />}

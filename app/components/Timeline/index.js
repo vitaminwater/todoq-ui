@@ -9,7 +9,14 @@ import React, { PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-import { List } from 'components/UIKit/list';
+export const List = styled.div`
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  border-right: 1px solid #efefef;
+`;
 
 export const Item = styled.div`
   background-color: white;

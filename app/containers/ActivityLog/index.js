@@ -15,11 +15,13 @@ import makeSelectActivityLog from './selectors';
 import messages from './messages';
 import moment from 'moment';
 
+import Loading from 'components/Loading';
+
 import note from './img/note.png';
 import todo from './img/todo.png';
 
 import { loadMoreLogs, createLog, reset } from './actions';
-import { logsSelector } from './selectors';
+import { logsSelector, loadingSelector } from './selectors';
 
 const Container = styled.div`
   display: flex;
@@ -114,7 +116,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
-    const { logs } = this.props;
+    const { logs, loading } = this.props;
     return (
       <Container>
         <LogsContainer ref='logScroll'>
@@ -134,6 +136,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
           <TextArea value={this.state.text} onChange={({ target: { value: text } }) => this.setState({text})} onKeyPress={this._handleKeyPress} />
           <Button onClick={this._handleSend}>SEND</Button>
         </InputContainer>
+        {loading && <Loading />}
       </Container>
     );
   }
@@ -169,6 +172,7 @@ ActivityLog.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   logs: logsSelector(),
+  loading: loadingSelector(),
 });
 
 function mapDispatchToProps(dispatch) {

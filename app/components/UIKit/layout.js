@@ -50,7 +50,6 @@ export const LayoutChild = styled.div`
   ${props => props.left ? 'width: 300pt;' : 'flex: 1'}
   z-index: ${props => props.active ? 10 : 0};
   background-color: white;
-  margin-top: 10pt;
   ${media.desktop`
     position: absolute;
     width: 100%; height: 100%;

@@ -110,7 +110,7 @@ export class RadioForm extends React.PureComponent {
         { label && <label>{label}<br /></label> }
         {_.map(options, (option, i) => (
           <InlineDiv key={i} onClick={() => onChange(option.value)}>
-            <Checkbox checked={value == option.value} />&nbsp;
+            <Checkbox checked={value === option.value} />&nbsp;
             {option.label}&nbsp;&nbsp;
           </InlineDiv>
         ))}
@@ -132,7 +132,8 @@ export class DateForm extends React.PureComponent {
       <div>
         <Inline30Div>
           <label>Day</label>
-          <Select>
+          <Select onChange={this._handleDayChange}>
+            <option>⏬</option>
             {_.times(31, (i) => (
               <option key={i}>{i+1}</option>
             ))}
@@ -140,7 +141,7 @@ export class DateForm extends React.PureComponent {
         </Inline30Div>&nbsp;
         <Inline30Div>
           <label>Month</label>
-          <Select>
+          <Select onChange={this._handleMonthChange}>
             {_.times(12, (i) => (
               <option key={i}>{moment().month(i).format('MMMM')}</option>
             ))}
@@ -148,7 +149,7 @@ export class DateForm extends React.PureComponent {
         </Inline30Div>&nbsp;
         <Inline30Div>
           <label>Year</label>
-          <Select>
+          <Select onChange={this._handleYearChange}>
             {_.times(2, (i) => (
               <option key={i}>{i+2017}</option>
             ))}
@@ -156,6 +157,18 @@ export class DateForm extends React.PureComponent {
         </Inline30Div>
       </div>
     );
+  }
+
+  _handleDayChange = (e) => {
+    console.log(e);
+  }
+
+  _handleMonthChange = (e) => {
+    console.log(e);
+  }
+
+  _handleYearChange = (e) => {
+    console.log(e);
   }
 }
 
