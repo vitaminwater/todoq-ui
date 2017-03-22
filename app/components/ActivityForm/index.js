@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import { Field, reduxForm, initialize } from 'redux-form/immutable';
+import { Field, reduxForm, formValueSelector, initialize } from 'redux-form/immutable';
   
 import { InputForm, TextAreaForm, SelectForm, RadioForm, DateForm, Button, ColorPicker, IconUpload } from 'components/UIKit/form';
 
@@ -39,8 +39,8 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
     }
   }
 
-  renderFrequency(frequency) {
-    if (frequency == 'frequency') {
+  renderType(type) {
+    if (type == 'frequency') {
       return (
         <Field component={SelectForm} name='frequency'>
           <option>day</option>
@@ -49,7 +49,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
           <option>year</option>
         </Field>
       );
-    } else if (frequency == 'deadline') {
+    } else if (type == 'deadline') {
       return (
         <Field component={DateForm} name='deadline' />
       );
@@ -82,7 +82,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
           label: 'Until :',
           value: 'deadline',
         },]} />
-        { this.renderFrequency(this.props.type) }<br />
+        { this.renderType(this.props.type) }<br />
         <SmallDiv>
           <Field component={SelectForm} name='avgDuration' label='At least :'>
             {_.times(8, (i) => (
@@ -113,8 +113,14 @@ ActivityForm = reduxForm({
   form: 'activityForm',
 })(ActivityForm);
 
+const selector = formValueSelector('activityForm');
 ActivityForm = connect(
-  state => ({}),
+  state => {
+    const type = selector(state, 'type');
+    return {
+      type,
+    }
+  },
   dispatch => ({
     initialize: (initialValues) => dispatch(initialize('activityForm', initialValues)),
   })

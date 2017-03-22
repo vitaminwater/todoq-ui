@@ -19,7 +19,7 @@ function settingsNewActivityReducer(state = initialState, action) {
       return state.set('loading', true);
     case CREATED_ACTIVITY:
       return state.set('created', action.activity.get('id'))
-                  .get('loading', false);
+                  .set('loading', false);
     case CREATE_ACTIVITY_ERROR:
       return state.set('loading', false)
                   .set('error', action.error);
