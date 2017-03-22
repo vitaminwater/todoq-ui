@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the activityLog state domain
  */
-const domain = () => (state) => state.get('activityLog');
+const domain = () => state => state.get('activityLog');
 
 /**
  * Other specific selectors
@@ -14,17 +14,17 @@ const domain = () => (state) => state.get('activityLog');
  * Default selector used by ActivityLog
  */
 
-const logsSelector = () => createSelector(
+export const activitySelector = () => createSelector(
   domain(),
-  (state) => state.get('logs'),
+  state => state.get('activity'),
+)
+
+export const logsSelector = () => createSelector(
+  domain(),
+  state => state.get('logs'),
 );
 
-const loadingSelector = () => createSelector(
+export const loadingSelector = () => createSelector(
   domain(),
-  (state) => state.get('loading'),
+  state => state.get('loading'),
 );
-
-export {
-  logsSelector,
-  loadingSelector,
-};

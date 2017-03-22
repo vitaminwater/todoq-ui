@@ -99,7 +99,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
         },]} label='This task cannot be skipped when full-focus mode is ON' />
         {error && <Error>{error}</Error>}
         <ButtonContainer>
-          <Button>{ initialValues && initialValues.get('id') ? 'Update activity' : 'Create activity' }</Button>
+          <Button>{ initialValues && initialValues.get('id') ? 'UPDATE' : 'CREATE' }</Button>
         </ButtonContainer>
       </form>
     );

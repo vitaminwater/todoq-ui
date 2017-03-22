@@ -17,6 +17,11 @@ import {
   CREATED_LOG,
 } from './constants';
 
+import {
+  LOADING_ACTIVITY,
+  SET_ACTIVITY,
+} from 'common/constants';
+
 const initialState = fromJS({
   logs: [],
   currentPage: 0,
@@ -26,6 +31,11 @@ function activityLogReducer(state = initialState, action) {
   switch (action.type) {
     case RESET:
       return initialState;
+    case LOADING_ACTIVITY:
+      return state.set('loading', true);
+    case SET_ACTIVITY:
+      return state.set('activity', action.activity)
+                  .set('loading', false);
     case LOADING_MORE_LOGS:
       return state.set('loading', true);
     case LOADED_MORE_LOGS: {

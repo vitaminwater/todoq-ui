@@ -15,12 +15,12 @@ export const List = styled.div`
   width: 100%;
   height: 100%;
   overflow: scroll;
-  border-right: 1px solid #efefef;
 `;
 
 export const Item = styled.div`
   background-color: white;
   margin-bottom: 10pt;
+  cursor: pointer;
 `;
 
 const Container = styled.div`

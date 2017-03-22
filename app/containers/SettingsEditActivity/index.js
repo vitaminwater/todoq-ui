@@ -12,8 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { activitySelector, loadingSelector, errorSelector } from './selectors';
 import messages from './messages';
 
-import { loadActivity } from './actions';
-import { updateActivity } from 'common/actions';
+import { loadActivity, updateActivity } from 'common/actions';
 import ActivityForm from 'components/ActivityForm';
 import Loading from 'components/Loading';
 

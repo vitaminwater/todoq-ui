@@ -17,7 +17,8 @@ import messages from './messages';
 import Loading from 'components/Loading';
 
 import { loadMoreLogs, createLog, reset } from './actions';
-import { logsSelector, loadingSelector } from './selectors';
+import { loadActivity } from 'common/actions';
+import { activitySelector, logsSelector, loadingSelector } from './selectors';
 
 import NoteLog from 'components/log/NoteLog';
 import LinkLog from 'components/log/LinkLog';
@@ -25,6 +26,7 @@ import TodoLog from 'components/log/TodoLog';
 import UnprocessedLog from 'components/log/UnprocessedLog';
 
 const Container = styled.div`
+  border-left: 6pt solid ${props => props.color || '#e0e0e0'};
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -89,14 +91,14 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
 
   componentWillMount() {
     const { activityId } = this.props.params;
-    this._handleLoadLogs(activityId);
+    this._handleLoadData(activityId);
   }
 
   componentWillReceiveProps(nextProps) {
     const { params: { activityId }, logs } = this.props;
     const { params: { activityId: nextActivityId }, logs: nextLogs } = nextProps;
     if (activityId != nextActivityId) {
-      this._handleLoadLogs(nextActivityId);
+      this._handleLoadData(nextActivityId);
     }
     if (logs.size && nextLogs.size && (logs.get('0').get('id') != nextLogs.get('0').get('id'))) {
       setTimeout(() => {
@@ -115,9 +117,10 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
   }
 
   render() {
-    const { logs, loading } = this.props;
+    const { logs, activity, loading } = this.props;
+    console.log(activity && activity.get('color'));
     return (
-      <Container>
+      <Container color={activity && activity.get('color')}>
         <LogsContainer ref='logScroll'>
           {
             logs.map((log, i) => this.renderLog(log, i))
@@ -132,8 +135,9 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     );
   }
 
-  _handleLoadLogs(activityId) {
+  _handleLoadData(activityId) {
     this.props.reset();
+    this.props.loadActivity(activityId);
     this.props.loadMoreLogs(activityId);
   }
 
@@ -162,13 +166,15 @@ ActivityLog.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  activity: activitySelector(),
   logs: logsSelector(),
   loading: loadingSelector(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadMoreLogs: (activityId) => dispatch(loadMoreLogs(activityId)),
+    loadActivity: activityId => dispatch(loadActivity(activityId)),
+    loadMoreLogs: activityId => dispatch(loadMoreLogs(activityId)),
     createLog: (activityId, log) => dispatch(createLog(activityId, log)),
     reset: () => dispatch(reset()),
   };

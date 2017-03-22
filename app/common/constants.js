@@ -18,3 +18,7 @@ export const CREATE_ACTIVITY = 'app/Common/CREATE_ACTIVITY';
 export const CREATING_ACTIVITY = 'app/Common/CREATING_ACTIVITY';
 export const CREATED_ACTIVITY = 'app/Common/CREATED_ACTIVITY';
 export const CREATE_ACTIVITY_ERROR = 'app/Common/CREATE_ACTIVITY_ERROR';
+
+export const LOAD_ACTIVITY = 'app/SettingsEditActivity/LOAD_ACTIVITY';
+export const SET_ACTIVITY = 'app/SettingsEditActivity/SET_ACTIVITY';
+export const LOADING_ACTIVITY = 'app/SettingsEditActivity/LOADING_ACTIVITY';

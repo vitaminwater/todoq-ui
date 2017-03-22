@@ -19,6 +19,10 @@ import {
   DELETING_ACTIVITY,
   DELETED_ACTIVITY,
   DELETE_ACTIVITY_ERROR,
+
+  LOAD_ACTIVITY,
+  SET_ACTIVITY,
+  LOADING_ACTIVITY,
 } from './constants';
 
 export function createActivity(activity) {
@@ -105,5 +109,25 @@ export function deleteActivityError(activity, error) {
     type: DELETE_ACTIVITY_ERROR,
     activity,
     error
+  }
+}
+
+export function loadActivity(activityId) {
+  return {
+    type: LOAD_ACTIVITY,
+    activityId,
+  };
+}
+
+export function loadingActivity() {
+  return {
+    type: LOADING_ACTIVITY,
+  }
+}
+
+export function setActivity(activity) {
+  return {
+    type: SET_ACTIVITY,
+    activity,
   }
 }

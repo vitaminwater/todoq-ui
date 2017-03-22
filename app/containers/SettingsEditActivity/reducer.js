@@ -6,14 +6,14 @@
 
 import { fromJS } from 'immutable';
 import {
-  LOADING_ACTIVITY,
-  SET_ACTIVITY,
 } from './constants';
 
 import {
   UPDATING_ACTIVITY,
   UPDATED_ACTIVITY,
   UPDATE_ACTIVITY_ERROR,
+  LOADING_ACTIVITY,
+  SET_ACTIVITY,
 } from 'common/constants';
 
 const initialState = fromJS({});
