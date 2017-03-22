@@ -13,15 +13,16 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectActivityLog from './selectors';
 import messages from './messages';
-import moment from 'moment';
 
 import Loading from 'components/Loading';
 
-import note from './img/note.png';
-import todo from './img/todo.png';
-
 import { loadMoreLogs, createLog, reset } from './actions';
 import { logsSelector, loadingSelector } from './selectors';
+
+import NoteLog from 'components/log/NoteLog';
+import LinkLog from 'components/log/LinkLog';
+import TodoLog from 'components/log/TodoLog';
+import UnprocessedLog from 'components/log/UnprocessedLog';
 
 const Container = styled.div`
   display: flex;
@@ -39,23 +40,6 @@ const LogsContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
   overflow-y: auto;
-`;
-
-const Log = styled.div`
-  position: relative;
-  padding: 30pt 10pt 30pt 10pt;
-  ${props => props.first ? '' : 'border-bottom: 2px dashed #E0E0E0;'}
-`;
-
-const LogIcon = styled.img`
-  margin: 20pt;
-  height: 40pt;
-`;
-
-const LogDate = styled.div`
-  position: absolute;
-  top: 5pt; left: 5pt;
-  color: #a0a0a0;
 `;
 
 const InputContainer = styled.div`
@@ -88,6 +72,13 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
+const LOG_ELEMS = {
+  NOTE: NoteLog,
+  LINK: LinkLog,
+  TODO: TodoLog,
+  UNPROCESSED: UnprocessedLog,
+};
+
 export class ActivityLog extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor() {
@@ -115,21 +106,21 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     }
   }
 
+  renderLog(log, i) {
+    const type = log.get('type');
+    const Log = LOG_ELEMS[type];
+    return (
+      <Log first={i == 0} log={log} key={log.get('id')} />
+    );
+  }
+
   render() {
     const { logs, loading } = this.props;
     return (
       <Container>
         <LogsContainer ref='logScroll'>
           {
-            logs.map((log, i) => (
-              <Log first={i == 0} key={log.get('id')}>
-                <LogDate>
-                  {moment(log.get('inserted_at')).format('MMMM Do YYYY, h:mm:ss a')}
-                </LogDate>
-                <LogIcon src={note} />
-                {log.get('text')}
-              </Log>
-            ))
+            logs.map((log, i) => this.renderLog(log, i))
           }
         </LogsContainer>
         <InputContainer>
@@ -157,7 +148,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     const { text } = this.state;
     const { activityId } = this.props.params;
     const log = fromJS({
-      type: 'NOTE',
+      type: 'UNPROCESSED',
       text,
       content: {},
     });
