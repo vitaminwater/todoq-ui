@@ -24,7 +24,7 @@ class UnprocessedLog extends React.PureComponent { // eslint-disable-line react/
     return (
       <Log first={first}>
         <LogDate>
-          {moment(log.get('inserted_at')).format('MMMM Do YYYY, h:mm:ss a')}
+          {moment(log.get('inserted_at')).calendar()}
         </LogDate>
         <LogIcon src={loading} />
         {log.get('text')}
