@@ -34,7 +34,9 @@ const Error = styled.span`
 class ActivityForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
  
   componentWillReceiveProps(nextProps) {
-    if (this.props.initialValues != nextProps.initialValues) {
+    const { initialValues } = this.props;
+    const { initialValues: nextInitialValues } = nextProps; 
+    if (!!initialValues != !!nextInitialValues || !initialValues.equals(nextInitialValues)) {
       this.props.initialize(nextProps.initialValues);
     }
   }

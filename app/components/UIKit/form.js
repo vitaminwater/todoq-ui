@@ -128,29 +128,33 @@ const Inline30Div = styled.div`
 export class DateForm extends React.PureComponent {
 
   render() {
+    const { value } = this.props.input;
+    const m = moment(value, 'YYYY-MM-DDTHH:mm:ss');
+    const day = m.date(),
+          month = m.month(),
+          year = m.year();
     return (
       <div>
         <Inline30Div>
           <label>Day</label>
-          <Select onChange={this._handleDayChange}>
-            <option>⏬</option>
-            {_.times(31, (i) => (
+          <Select onChange={this._handleDayChange} value={day}>
+            {_.times(moment().year(year).month(month).daysInMonth(), (i) => (
               <option key={i}>{i+1}</option>
             ))}
           </Select>
         </Inline30Div>&nbsp;
         <Inline30Div>
           <label>Month</label>
-          <Select onChange={this._handleMonthChange}>
+          <Select onChange={this._handleMonthChange} value={month}>
             {_.times(12, (i) => (
-              <option key={i}>{moment().month(i).format('MMMM')}</option>
+              <option value={i} key={i}>{moment().month(i).format('MMMM')}</option>
             ))}
           </Select>
         </Inline30Div>&nbsp;
         <Inline30Div>
           <label>Year</label>
-          <Select onChange={this._handleYearChange}>
-            {_.times(2, (i) => (
+          <Select onChange={this._handleYearChange} value={year}>
+            {_.times(4, (i) => (
               <option key={i}>{i+2017}</option>
             ))}
           </Select>
@@ -159,16 +163,19 @@ export class DateForm extends React.PureComponent {
     );
   }
 
-  _handleDayChange = (e) => {
-    console.log(e);
+  _handleDayChange = ({ target: { value: day } }) => {
+    const { onChange, value } = this.props.input;
+    onChange(moment(value).date(day).format('YYYY-MM-DDTHH:mm:ss'));
   }
 
-  _handleMonthChange = (e) => {
-    console.log(e);
+  _handleMonthChange = ({ target: { value: month } }) => {
+    const { onChange, value } = this.props.input;
+    onChange(moment(value).month(month).format('YYYY-MM-DDTHH:mm:ss'));
   }
 
-  _handleYearChange = (e) => {
-    console.log(e);
+  _handleYearChange = ({ target: { value: year } }) => {
+    const { onChange, value } = this.props.input;
+    onChange(moment(value).year(year).format('YYYY-MM-DDTHH:mm:ss'));
   }
 }
 
@@ -251,10 +258,12 @@ export class IconUpload extends React.PureComponent {
     this.state = {};
   }
 
+  componentWillMount() {
+    this._setUrlFromProps(this.props);
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.input.value === 'string') {
-      this.setState({url: `http://localhost:8000${nextProps.input.value}`});
-    }
+    this._setUrlFromProps(nextProps);
   }
 
   render() {
@@ -268,6 +277,12 @@ export class IconUpload extends React.PureComponent {
         </IconLabel>
       </RelativeDiv>
     );
+  }
+
+  _setUrlFromProps(props) {
+    if (typeof props.input.value === 'string') {
+      this.setState({url: `http://localhost:8000${props.input.value}`});
+    }
   }
 
 }

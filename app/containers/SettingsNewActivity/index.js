@@ -5,6 +5,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -19,6 +20,7 @@ import Loading from 'components/Loading';
 const DEFAULT_VALUES = fromJS({
   type: 'frequency',
   frequency: 'week',
+  deadline: moment(new Date()).add('10 days').format('YYYY-MM-DDTHH:mm:ss'),
   invest: 120,
   skippable: true,
   avgDuration: 60
