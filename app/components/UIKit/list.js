@@ -12,3 +12,8 @@ export const Item = styled.div`
   background-color: white;
   border-bottom: 1pt dashed #E0E0E0;
 `;
+
+export const ActivityIcon = styled.div`
+  background-image: url(${props => props.src});
+  background-size: cover;
+`;

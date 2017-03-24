@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+import { ActivityIcon } from 'components/UIKit/list';
+
 const ItemDiv = styled.div`
   border-bottom: 1pt dashed #E0E0E0;
   padding: 10pt;
@@ -23,7 +25,7 @@ const ItemDiv = styled.div`
   }
 `;
 
-const Image = styled.img`
+const Image = styled(ActivityIcon)`
   margin-right: 10pt;
   border-radius: 20pt;
   float: left;

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import React from 'react';
 import moment from 'moment';
 
+import { ActivityIcon } from './list';
+
 export const Input = styled.input`
   height: 50px;
   width: 100%;
@@ -237,7 +239,7 @@ const HiddenFileInput = styled.input`
   &:focus { outline:none; }
 `;
 
-const IconImg = styled.img`
+const IconImg = styled(ActivityIcon)`
   display: block;
   width: 50pt;
   height: 50pt;

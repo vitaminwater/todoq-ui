@@ -9,6 +9,8 @@ import React, { PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+import { ActivityIcon } from 'components/UIKit/list';
+
 export const List = styled.div`
   position: absolute;
   top: 0; left: 0;
@@ -32,7 +34,7 @@ const Container = styled.div`
   margin-left: 30pt;
 `;
 
-const Image = styled.img`
+const Image = styled(ActivityIcon)`
   position: absolute;
   top: 50%; left: 10pt;
   transform: translate(0, -50%);
