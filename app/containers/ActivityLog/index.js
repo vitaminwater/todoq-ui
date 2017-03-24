@@ -105,6 +105,10 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     this.props.subscribeLog(activityId);
   }
 
+  componentDidMount() {
+    ReactDOM.findDOMNode(this.refs.textarea).focus();
+  }
+
   componentWillReceiveProps(nextProps) {
     const { params: { activityId }, logs } = this.props;
     const { params: { activityId: nextActivityId }, logs: nextLogs } = nextProps;
@@ -112,6 +116,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
       this.props.unsubscribeLog(activityId);
       this._handleLoadData(nextActivityId);
       this.props.subscribeLog(nextActivityId);
+      ReactDOM.findDOMNode(this.refs.textarea).focus();
     }
     if (logs.size && nextLogs.size && (logs.get('0').get('id') != nextLogs.get('0').get('id'))) {
       setTimeout(() => {
@@ -144,7 +149,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
           }
         </LogsContainer>
         <InputContainer>
-          <TextArea value={this.state.text} onChange={({ target: { value: text } }) => this.setState({text})} onKeyPress={this._handleKeyPress} />
+          <TextArea ref='textarea' value={this.state.text} onChange={({ target: { value: text } }) => this.setState({text})} onKeyPress={this._handleKeyPress} />
           <Button onClick={this._handleSend}>SEND</Button>
         </InputContainer>
         {loading && <Loading />}
