@@ -14,6 +14,9 @@ import {
   CREATE_LOG,
   CREATING_LOG,
   CREATED_LOG,
+
+  SUBSCRIBE_ACTIVITY,
+  UNSUBSCRIBE_ACTIVITY,
 } from './constants';
 
 export function reset() {
@@ -74,4 +77,18 @@ export function createdLog(activityId, log) {
     activityId,
     log
   }
+}
+
+export function subscribeLog(activityId) {
+  return {
+    type: SUBSCRIBE_ACTIVITY,
+    activityId,
+  };
+}
+
+export function unsubscribeLog(activityId) {
+  return {
+    type: UNSUBSCRIBE_ACTIVITY,
+    activityId,
+  };
 }

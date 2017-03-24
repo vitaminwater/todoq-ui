@@ -16,9 +16,19 @@ import messages from './messages';
 
 import Loading from 'components/Loading';
 
-import { loadMoreLogs, createLog, reset } from './actions';
+import {
+  loadMoreLogs,
+  createLog,
+  reset,
+  subscribeLog,
+  unsubscribeLog,
+} from './actions';
 import { loadActivity } from 'common/actions';
-import { activitySelector, logsSelector, loadingSelector } from './selectors';
+import {
+  activitySelector,
+  logsSelector,
+  loadingSelector
+} from './selectors';
 
 import NoteLog from 'components/log/NoteLog';
 import LinkLog from 'components/log/LinkLog';
@@ -92,13 +102,16 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
   componentWillMount() {
     const { activityId } = this.props.params;
     this._handleLoadData(activityId);
+    this.props.subscribeLog(activityId);
   }
 
   componentWillReceiveProps(nextProps) {
     const { params: { activityId }, logs } = this.props;
     const { params: { activityId: nextActivityId }, logs: nextLogs } = nextProps;
     if (activityId != nextActivityId) {
+      this.props.unsubscribeLog(activityId);
       this._handleLoadData(nextActivityId);
+      this.props.subscribeLog(nextActivityId);
     }
     if (logs.size && nextLogs.size && (logs.get('0').get('id') != nextLogs.get('0').get('id'))) {
       setTimeout(() => {
@@ -106,6 +119,11 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
         elem.scrollTop = elem.scrollHeight;
       }, 30);
     }
+  }
+
+  componentWillUnmount() {
+    const { activityId } = this.props.params;
+    this.props.unsubscribeLog(activityId);
   }
 
   renderLog(log, i) {
@@ -118,7 +136,6 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
 
   render() {
     const { logs, activity, loading } = this.props;
-    console.log(activity && activity.get('color'));
     return (
       <Container color={activity && activity.get('color')}>
         <LogsContainer ref='logScroll'>
@@ -177,6 +194,8 @@ function mapDispatchToProps(dispatch) {
     loadMoreLogs: activityId => dispatch(loadMoreLogs(activityId)),
     createLog: (activityId, log) => dispatch(createLog(activityId, log)),
     reset: () => dispatch(reset()),
+    subscribeLog: (activityId) => dispatch(subscribeLog(activityId)),
+    unsubscribeLog: (activityId) => dispatch(unsubscribeLog(activityId)),
   };
 }
 

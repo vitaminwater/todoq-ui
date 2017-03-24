@@ -13,3 +13,6 @@ export const NO_MORE_LOGS = 'app/ActivityLog/NO_MORE_LOGS';
 export const CREATE_LOG = 'app/ActivityLog/CREATE_LOG';
 export const CREATING_LOG = 'app/ActivityLog/CREATING_LOG';
 export const CREATED_LOG = 'app/ActivityLog/CREATED_LOG';
+
+export const SUBSCRIBE_ACTIVITY = 'app/ActivityLog/SUBSCRIBE_ACTIVITY';
+export const UNSUBSCRIBE_ACTIVITY = 'app/ActivityLog/UNSUBSCRIBE_ACTIVITY';
