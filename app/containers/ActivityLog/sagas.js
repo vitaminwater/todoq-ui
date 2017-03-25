@@ -56,7 +56,7 @@ function* createLog(action) {
 }
 
 function* subscribeLog(action) {
-  const channel = yield call(join(`activity:${action.activityId}`, 'log:insert'));
+  const channel = yield call(join(`logs:${action.activityId}`, 'log:insert'));
 
   yield fork(function* () {
     try {
