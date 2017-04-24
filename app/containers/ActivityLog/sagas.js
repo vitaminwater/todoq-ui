@@ -18,17 +18,13 @@ import {
   noMoreLogs,
   creatingLog,
   createdLog,
+  updatingLog,
+  updatedLog,
 } from './actions';
 
 const selectCurrentPage = state => state.get('currentPage');
 
 const N_PER_PAGE=20;
-
-const startWebsocket = (c) => {
-  return {
-    close: () => socket.close(),
-  }
-}
 
 function* loadMoreLogs(action) {
   const url = `http://localhost:4000/activities/${action.activityId}/logs`;
@@ -56,13 +52,21 @@ function* createLog(action) {
 }
 
 function* subscribeLog(action) {
-  const channel = yield call(join(`logs:${action.activityId}`, 'log:insert'));
+  const channel = yield call(join(`logs:${action.activityId}`, ['insert:log', 'update:log']));
 
   yield fork(function* () {
     try {
       while (true) {
-        const log = yield take(channel);
-        console.log(log);
+        const event = yield take(channel);
+        console.log("subscribeLog", event);
+        switch(event.name) {
+          case "insert:log":
+            yield put(createdLog(action.activityId, fromJS(event.payload)));
+            break;
+          case "update:log":
+            yield put(updatedLog(action.activityId, fromJS(event.payload)));
+            break;
+        }
       }
     } catch (err) {
       console.log(err);
@@ -71,7 +75,7 @@ function* subscribeLog(action) {
 }
 
 function* unsubscribeLog(action) {
-  leave(`activity:${action.activityId}`);
+  leave(`logs:${action.activityId}`);
 }
 
 export function* logSaga() {

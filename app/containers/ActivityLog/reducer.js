@@ -15,6 +15,9 @@ import {
 
   CREATING_LOG,
   CREATED_LOG,
+
+  UPDATING_LOG,
+  UPDATED_LOG,
 } from './constants';
 
 import {
@@ -26,6 +29,10 @@ const initialState = fromJS({
   logs: [],
   currentPage: 0,
 });
+
+const logIndex = (state, log) => state
+  .get('logs')
+  .findIndex((l) => l.get('id') == log.get('id'));
 
 function activityLogReducer(state = initialState, action) {
   switch (action.type) {
@@ -50,11 +57,21 @@ function activityLogReducer(state = initialState, action) {
     case CREATING_LOG:
       return state.set('creating');
     case CREATED_LOG: {
+      if (logIndex(state, action.log) !== -1) return state;
       const logs = state.get('logs')
         .insert(0, action.log);
       return state.set('logs', logs)
         .set('creating', false);
     }
+    case UPDATING_LOG:
+      return state.set('updating', action.log.get('id'));
+    case UPDATED_LOG: {
+      const logs = state.get('logs')
+        .update(logIndex(state, action.log), (l) => action.log);
+      return state.set('logs', logs)
+        .set('updating', false);
+    }
+
     default:
       return state;
   }

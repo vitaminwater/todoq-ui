@@ -1,8 +1,10 @@
+import _ from 'lodash';
+
 import { eventChannel, } from 'redux-saga'
 import { Socket, LongPoller } from "phoenix"
 
 let socket = new Socket("ws://localhost:4000/socket", {
-  logger: ((kind, msg, data) => { console.log(`${kind}: ${msg}`, data) })
+  //logger: ((kind, msg, data) => { console.log(`${kind}: ${msg}`, data) })
 })
 
 socket.connect();
@@ -19,11 +21,15 @@ const getChannel = (name) => {
 }
 
 export const join = (name, event) => {
+  event = typeof event.length == 'undefined' ? [event] : event;
   return () => {
     return eventChannel(emitter => {
       const channel = getChannel(name);
-      channel.on(event, payload => {
-        emitter(payload);
+      console.log("channel.on", channel);
+      _.forEach(event, (e) => {
+        channel.on(e, payload => {
+          emitter({name: e, payload});
+        });
       });
       return () => leave(name);
     });

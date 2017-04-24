@@ -52,7 +52,7 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('ActivityList', reducer.default);
+          injectReducer('activityList', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

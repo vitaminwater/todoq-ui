@@ -15,6 +15,10 @@ import {
   CREATING_LOG,
   CREATED_LOG,
 
+  UPDATE_LOG,
+  UPDATING_LOG,
+  UPDATED_LOG,
+
   SUBSCRIBE_ACTIVITY,
   UNSUBSCRIBE_ACTIVITY,
 } from './constants';
@@ -74,6 +78,30 @@ export function creatingLog(activityId, log) {
 export function createdLog(activityId, log) {
   return {
     type: CREATED_LOG,
+    activityId,
+    log
+  }
+}
+
+export function updateLog(activityId, log) {
+  return {
+    type: UPDATE_LOG,
+    activityId,
+    log
+  };
+}
+
+export function updatingLog(activityId, log) {
+  return {
+    type: UPDATING_LOG,
+    activityId,
+    log
+  }
+}
+
+export function updatedLog(activityId, log) {
+  return {
+    type: UPDATED_LOG,
     activityId,
     log
   }
