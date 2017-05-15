@@ -11,6 +11,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import moment from 'moment';
+
 import makeSelectActivityLog from './selectors';
 import messages from './messages';
 
@@ -35,54 +37,14 @@ import LinkLog from 'components/log/LinkLog';
 import TodoLog from 'components/log/TodoLog';
 import UnprocessedLog from 'components/log/UnprocessedLog';
 
-const Container = styled.div`
-  border-left: 6pt solid ${props => props.color || '#e0e0e0'};
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  justify-content: stretch;
-  align-items: stretch;
-  align-content: stretch;
-`;
-
-const LogsContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column-reverse;
-  overflow-y: auto;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 10pt;
-  justify-content: stretch;
-  align-items: stretch;
-  align-content: stretch;
-`;
-
-export const TextArea = styled.textarea`
-  width: 100%;
-  border: 2px dashed #E0E0E0;
-  padding: 5px;
-  font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
-  margin-right: 5pt;
-  resize: none;
-
-  &:focus { outline:none; }
-`;
-
-export const Button = styled.button`
-  background-color: #A7CEA7;
-  padding: 5pt 15pt;
-  font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
-  border: 1pt solid #979797;
-  cursor: pointer;
-`;
+import Container from './components/Container';
+import LogsContainer from './components/LogsContainer';
+import LogContainer from './components/LogContainer';
+import LogDate from './components/LogDate';
+import LogTime from './components/LogTime';
+import InputContainer from './components/InputContainer';
+import TextArea from './components/TextArea';
+import Button from './components/Button';
 
 const LOG_ELEMS = {
   NOTE: NoteLog,
@@ -131,11 +93,18 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
     this.props.unsubscribeLog(activityId);
   }
 
-  renderLog(log, i) {
-    const type = log.get('type');
-    const Log = LOG_ELEMS[type];
+  renderLog(log, i, nextLog) {
+    const type = log.get('type'),
+      Log = LOG_ELEMS[type],
+      printDaySeparator = !!(!nextLog || moment(log.get('inserted_at')).diff(nextLog.get('inserted_at'), 'day'));
     return (
-      <Log first={i == 0} log={log} key={log.get('id')} />
+      <div key={log.get('id')}>
+        { printDaySeparator && <LogTime log={log} /> }
+        <LogContainer>
+          <LogDate log={log} />
+          <Log log={log} />
+        </LogContainer>
+      </div>
     );
   }
 
@@ -145,7 +114,7 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
       <Container color={activity && activity.get('color')}>
         <LogsContainer ref='logScroll'>
           {
-            logs.map((log, i) => this.renderLog(log, i))
+            logs.map((log, i) => this.renderLog(log, i, i < logs.size-1 ? logs.get(i+1) : undefined))
           }
         </LogsContainer>
         <InputContainer>

@@ -86,7 +86,7 @@ class ActivityForm extends React.PureComponent { // eslint-disable-line react/pr
         },]} />
         { this.renderType(this.props.type) }<br />
         <SmallDiv>
-          <Field component={SelectForm} name='avgDuration' label='At least :'>
+          <Field component={SelectForm} name='avgDuration' label='Minimum time for a session :'>
             {_.times(8, (i) => (
               <option key={i} value={(i+1)*30}>{Math.floor((i+1) / 2)} hr {((i+1) % 2) * 30}</option>
             ))}
