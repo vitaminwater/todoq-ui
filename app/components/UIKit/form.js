@@ -9,7 +9,7 @@ import { ActivityIcon } from './list';
 export const Input = styled.input`
   height: 50px;
   width: 100%;
-  border: 2px dashed #E0E0E0;
+  border: 1px dashed #E0E0E0;
   padding-left: 10px;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
@@ -35,7 +35,7 @@ export class InputForm extends React.PureComponent {
 export const TextArea = styled.textarea`
   height: 110px;
   width: 100%;
-  border: 2px dashed #E0E0E0;
+  border: 1px dashed #E0E0E0;
   padding: 10px;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
@@ -61,7 +61,7 @@ export class TextAreaForm extends React.PureComponent {
 export const Select = styled.select`
   height: 50px;
   width: 100%;
-  border: 2px solid #E0E0E0;
+  border: 1px solid #E0E0E0;
   border-radius: 0;
   padding: 10px;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -96,7 +96,7 @@ const InlineDiv = styled.div`
 
 const Checkbox = styled.div`
   display: inline-block;
-  border: 2px solid #979797;
+  border: 1px solid #979797;
   background-color: ${props => props.checked ? '#D8D8D8' : 'white'};
   width: 10pt;
   height: 10pt;
@@ -201,7 +201,7 @@ export const ButtonCancel = styled.button`
 
 const ColorDiv = styled.div`
   display: inline-block;
-  border: 2px solid ${props => props.checked ? 'black' : '#979797'};
+  border: 1px solid ${props => props.checked ? 'black' : '#979797'};
   background-color: ${props => props.color};
   width: 15pt;
   height: 15pt;
@@ -283,7 +283,7 @@ export class IconUpload extends React.PureComponent {
 
   _setUrlFromProps(props) {
     if (typeof props.input.value === 'string') {
-      this.setState({url: `http://localhost:8000${props.input.value}`});
+      this.setState({url: props.input.value});
     }
   }
 

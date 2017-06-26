@@ -14,7 +14,7 @@ const Container = styled.div`
 const Line = styled.div`
   flex: 1;
   height: 1px;
-  border-bottom: 2px dashed #E0E0E0;
+  border-bottom: 1px dashed #E0E0E0;
 `;
 
 const Time = styled.div`

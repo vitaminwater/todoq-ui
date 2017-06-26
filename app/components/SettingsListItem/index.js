@@ -48,7 +48,7 @@ class SettingsListItem extends React.PureComponent { // eslint-disable-line reac
     const { activity } = this.props;
     return (
       <ItemDiv>
-        <Image src={`http://localhost:8000${activity.get('image')}`} />
+        <Image src={activity.get('image')} />
         {activity.get('name')}<br/ >
         <SubText>Never done yet</SubText>
         <Clear />

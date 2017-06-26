@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const Line = styled.div`
   height: 1px;
-  border-bottom: 2px dashed #E0E0E0;
+  border-bottom: 1px dashed #E0E0E0;
 `;
 
 const Date = styled.div`

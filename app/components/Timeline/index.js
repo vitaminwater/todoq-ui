@@ -58,7 +58,7 @@ class Timeline extends React.PureComponent { // eslint-disable-line react/prefer
           activities.map((activity) => (
               <Item onClick={this._handleOpen(activity)} key={activity.get('id')}>
                 <Container selected={selectedActivity && activity.get('id') == selectedActivity.get('id')} color={activity.get('color')}>
-                  <Image src={`http://localhost:8000${activity.get('image')}`} />
+                  <Image src={activity.get('image')} />
                   {activity.get('name')}<br />
                   {activity.get('why').split('\n').map((item, key) => (
                     <Alt key={key}>{item}<br/></Alt>

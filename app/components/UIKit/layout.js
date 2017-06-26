@@ -47,7 +47,7 @@ export const LayoutParent = styled.div`
 
 export const LayoutChild = styled.div`
   position: relative;
-  ${props => props.left ? 'width: 300pt;' : 'flex: 1'}
+  ${props => props.left ? 'width: 300pt' : 'flex: 1'};
   z-index: ${props => props.active ? 10 : 0};
   background-color: white;
   ${media.desktop`

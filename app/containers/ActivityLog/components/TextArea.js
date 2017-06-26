@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const TextArea = styled.textarea`
   width: 100%;
-  border: 2px dashed #E0E0E0;
+  border: 1px dashed #E0E0E0;
   padding: 5px;
   font-family: 'Roboto Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
