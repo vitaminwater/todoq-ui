@@ -52,15 +52,14 @@ function* createLog(action) {
 }
 
 function* subscribeLog(action) {
-  const channel = yield call(join(`logs:${action.activityId}`, ['insert:log', 'update:log']));
+  const channel = yield call(join(`logs:${action.activityId}`, ['create:log', 'update:log']));
 
   yield fork(function* () {
     try {
       while (true) {
         const event = yield take(channel);
-        console.log("subscribeLog", event);
         switch(event.name) {
-          case "insert:log":
+          case "create:log":
             yield put(createdLog(action.activityId, fromJS(event.payload)));
             break;
           case "update:log":

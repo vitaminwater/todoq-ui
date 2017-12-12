@@ -31,7 +31,6 @@ function activityListReducer(state = initialState, action) {
       return state.set('loading', true);
     case SET_DAY_ACTIVITIES:
       return state.set('activities', action.activities).set('loading', false);
-
     case UPDATING_ACTIVITY:
       return updatingActivity(state, action.activity);
     case UPDATED_ACTIVITY:

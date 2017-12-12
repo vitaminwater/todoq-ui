@@ -59,4 +59,3 @@ export const deleteActivityError = (state, activity) => {
     .delete(activityIndex(state, activity), (a) => a.set('deleting', false));
   return state.set('activities', activities);
 }
-

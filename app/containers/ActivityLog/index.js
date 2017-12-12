@@ -96,7 +96,8 @@ export class ActivityLog extends React.PureComponent { // eslint-disable-line re
   renderLog(log, i, nextLog) {
     const type = log.get('type'),
       Log = LOG_ELEMS[type],
-      printDaySeparator = !!(!nextLog || (moment(log.get('inserted_at')).dayOfYear() != moment(nextLog.get('inserted_at')).dayOfYear()));
+      logDate = moment(log.get('inserted_at')), nextLogDate = moment(nextLog ? nextLog.get('inserted_at') : undefined),
+      printDaySeparator = !!(logDate.dayOfYear() + logDate.year() != nextLogDate.dayOfYear() + nextLogDate.year());
     return (
       <div key={log.get('id')}>
         { printDaySeparator && <LogTime log={log} /> }

@@ -35,7 +35,7 @@ class LogTime extends React.PureComponent {
       <Container>
         <Line />
         <Time>
-          {moment(log.get('inserted_at')).format('MMM Do YY')}
+          {moment(log.get('inserted_at')).format('MMM Do YYYY')}
         </Time>
         <Line />
       </Container>
